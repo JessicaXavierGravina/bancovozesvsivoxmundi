@@ -1,0 +1,235 @@
+<!-- https://codepen.io/piotrek/pen/mXpRmQ -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+Teste
+{% endblock %}
+
+
+{% block head %}
+
+    <style>
+        h1 {
+          text-align: center;
+          margin-bottom: 0;
+        }
+
+        .container {
+          display: grid;
+          grid-template-columns: 1fr 3fr;
+          font-size: 13px;
+        }
+
+        aside {
+          padding: 0 1em;
+        }
+
+        aside div {
+          margin: .25em 0;
+        }
+
+        input {
+          margin-right: 5px;
+        }
+
+        main {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-column-gap: 30px;
+          margin-bottom: 5em;
+        }
+
+        .player {
+          margin: 2em 0;
+        }
+
+        .player h3 {
+          margin-bottom: 0;
+        }
+
+        p {
+          margin: 0;
+        }
+
+    </style>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#search-form').on('submit', function(event) {
+                event.preventDefault();
+                search();
+            });
+
+            function search() {
+                var categorias = [];
+                var generos = [];
+                var cantas = [];
+                var orientacoes = [];
+                var idioma = [];
+                var etnias = [];
+                var pcds = [];
+
+                $("input[name='categoria']:checked").each(function() {
+                    categorias.push($(this).val());
+                });
+
+                $("input[name='genero']:checked").each(function() {
+                    generos.push($(this).val());
+                });
+
+                $("input[name='canta']:checked").each(function() {
+                    cantas.push($(this).val());
+                });
+
+                $("input[name='orientacao']:checked").each(function() {
+                    orientacoes.push($(this).val());
+                });
+
+                $("input[name='idiomas']:checked").each(function() {
+                    idioma.push($(this).val());
+                });
+
+                $("input[name='etnia']:checked").each(function() {
+                    etnias.push($(this).val());
+                });
+
+                $("input[name='pcd']:checked").each(function() {
+                    pcds.push($(this).val());
+                });
+
+                $.ajax({
+                    url: "{% url 'vox:vozes' %}",
+                    type: "POST",
+                    data: {
+                        'categoria': categorias,
+                        'genero': generos,
+                        'canta': cantas,
+                        'orientacao': orientacoes,
+                        'idiomas': idiomas,
+                        'etnia': etnias,
+                        'pcd': pcds,
+                        'csrfmiddlewaretoken': "{{ csrf_token }}"
+                    },
+                    success: function(response) {
+                        displayResults(response);
+                    },
+                    error: function(xhr, errmsg, err) {
+                        console.log(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+            }
+
+            function displayResults(results) {
+                var resultsContainer = $('#results-container');
+                resultsContainer.empty();
+
+                if (results.length > 0) {
+                    for (var i = 0; i < results.length; i++) {
+                        var dublador = results[i];
+                        var resultHTML = '<div>';
+                        resultHTML += '<p>Nome Artístico: ' + dublador.nome_artistico + '</p>';
+                        resultHTML += '<p>Categoria: ' + dublador.categoria + '</p>';
+                        resultHTML += '<p>Gênero: ' + dublador.genero + '</p>';
+                        resultHTML += '<p>Canta: ' + dublador.canta + '</p>';
+                        resultHTML += '<p>Orientação: ' + dublador.orientacao + '</p>';
+                        resultHTML += '<p>Idiomas: ' + dublador.idiomas + '</p>';
+                        resultHTML += '<p>Etnia: ' + dublador.etnia + '</p>';
+                        resultHTML += '<p>PCD: ' + dublador.pcd + '</p>';
+                        resultHTML += '</div>';
+
+                                                resultsContainer.append(resultHTML);
+                    }
+                } else {
+                    resultsContainer.html('<p>Nenhum resultado encontrado.</p>');
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+  <aside>
+     <legend class="fw-bold ml-2">Categoria</legend>
+            <div><input type="checkbox" name="categoria" value="Infantil" id="categoria"><label for="categoria">Infantil</label></div>
+            <div><input type="checkbox" name="categoria" value="Adolescente" id="categoria"><label for="categoria">Adolescente</label></div>
+            <div><input type="checkbox" name="categoria" value="Jovem" id="categoria"><label for="categoria">Jovem</label></div>
+            <div><input type="checkbox" name="categoria" value="Jovem Leve" id="categoria"><label for="categoria">Jovem Leve</label></div>
+            <div><input type="checkbox" name="categoria" value="Jovem Pesada" id="categoria"><label for="categoria">Jovem Pesada</label></div>
+            <div><input type="checkbox" name="categoria" value="Adulto" id="Acategoria"><label for="categoria">Adulto</label></div>
+            <div><input type="checkbox" name="categoria" value="Adulto Leve" id="categoria"><label for="categoria">Adulto Leve</label></div>
+            <div><input type="checkbox" name="categoria" value="Adulto Pesada" id="categoria"><label for="categoria">Adulto Pesada</label></div>
+            <div><input type="checkbox" name="categoria" value="Meia Idade" id="categoria"><label for="categoria">Meia Idade</label></div>
+            <div><input type="checkbox" name="categoria" value="Idosa" id="categoria"><label for="categoria">Idosa</label></div>
+            <div><input type="checkbox" name="categoria" value="Idosa Leve" id="categoria"><label for="categoria">Idosa Leve</label></div>
+            <div><input type="checkbox" name="categoria" value="Idosa Pesada" id="categoria"><label for="categoria">Idosa Pesada</label></div>
+   </div>
+
+   <div class="col">
+       <legend class="fw-bold ml-2">Gênero</legend>
+
+             <div><input type="checkbox" name="genero" value="Homem Cis" id="genero"><label for="genero">Homem Cis</label></div>
+             <div><input type="checkbox" name="genero" value="Homem Trans" id="genero"><label for="genero">Homem Trans</label></div>
+             <div><input type="checkbox" name="genero" value="Intersexo" id="genero"><label for="genero">Intersexo</label></div>
+             <div><input type="checkbox" name="genero" value="Mulher Cis" id="genero"><label for="genero">Mulher Cis</label></div>
+             <div><input type="checkbox" name="genero" value="Mulher Trans" id="genero"><label for="genero">Mulher Trans</label></div>
+             <div><input type="checkbox" name="genero" value="Não Binário" id="genero"><label for="genero">Não Binário</label></div>
+
+       <legend class="fw-bold ml-2">Canta</legend>
+              <div><input type="checkbox" name="canta" value="Sim" id="canta"><label for="canta">Sim</label></div>
+              <div><input type="checkbox" name="canta" value="Não" id="canta"><label for="canta">Não</label></div>
+    </div>
+
+   <div class="col">
+       <legend class="fw-bold ml-2">Idiomas</legend>
+              <div><input type="checkbox" name="idiomas" value="Inglês" id="idiomas"><label for="idiomas">Inglês</label></div>
+              <div><input type="checkbox" name="idiomas" value="Espanhol" id="idiomas"><label for="idiomas">Espanhol</label></div>
+              <div><input type="checkbox" name="idiomas" value="Outros" id="idiomas"><label for="idiomas">Outros</label></div>
+
+        <legend class="fw-bold ml-2">Orientação Sexual</legend>
+              <div><input type="checkbox" name="orientacao" value="Assexual" id="orientacao"><label for="orientacao">Assexual</label></div>
+              <div><input type="checkbox" name="orientacao" value="Bissexual" id="orientacao"><label for="orientacao">Bissexual</label></div>
+              <div><input type="checkbox" name="orientacao" value="Heterossexual" id="orientacao"><label for="orientacao">Heterossexual</label></div>
+              <div><input type="checkbox" name="orientacao" value="Homossexual" id="orientacao"><label for="orientacao">Homossexual</label></div>
+              <div><input type="checkbox" name="orientacao" value="Pansexual" id="orientacao"><label for="orientacao">Pansexual</label></div>
+   </div>
+
+    <div class="col">
+        <legend class="fw-bold ml-2">Etnia</legend>
+          <div><input type="checkbox" name="etnia" value="Amarela" id="etnia"><label for="etnia">Amarela</label></div>
+          <div><input type="checkbox" name="etnia" value="Branca" id="etnia"><label for="etnia">Branca</label></div>
+          <div><input type="checkbox" name="etnia" value="Indigena" id="etnia"><label for="etnia">Indigena</label></div>
+          <div><input type="checkbox" name="etnia" value="Parda" id="etnia"><label for="etnia">Parda</label></div>
+          <div><input type="checkbox" name="etnia" value="Preta" id="etnia"><label for="etnia">Preta</label></div>
+
+        <legend class="fw-bold ml-2">PCD</legend>
+
+          <div><input type="checkbox" name="pcd" value="Sim" id="pcd"><label for="pcd">Sim</label></div>
+          <div><input type="checkbox" name="pcd" value="Não" id="pcd"><label for="pcd">Não</label></div>
+    </div>
+  </aside>
+
+        <input type="submit" value="Buscar">
+
+    <div id="results-container"></div>
+
+
+
+    <button type="submit">Buscar</button>
+    </form>
+
+    <div id="results-container">
+        <!-- Aqui serão exibidos os resultados da pesquisa -->
+    </div>
+
+{% endblock %}

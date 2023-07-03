@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block titulo %}
+    + Detalhes - VSI Vox Mundi
+{% endblock %}
+
+
+{% block head %}
+   <style>
+        .audio-player {
+          display: inline-block;
+        }
+
+        .audio-player audio {
+          width: 300px;
+          height: 35px;
+        }
+
+   </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <main class='bg-primary_black min-h-screen w-full'>
+        <div class="py-20 px-20 mx-10">
+             <div class="flex flex-col items-center justify-center mt-10 text-4xl text-[#1EBABD]">
+                    <h1>Mais detalhes sobre: {{ object.nome_artistico }}</h1>
+             </div>
+
+            <div style="margin-left: 400px; ">
+                <img src="{{ object.foto.url }}" width="200" height="190" style="float: left;" class="rounded mx-auto d-block" alt="...">
+
+                <div class="flex flex-col items-center justify-center mt-10">
+                        <p>{{ object.dublador }}</p>
+                        <p>{{ object.nascimento }}</p>
+                        <p>Categoria de voz: {{ object.categoria }}</p>
+                        <p>Etnia: {{ object.etnia }}</p>
+                        <p>Genero: {{ object.genero }}</p>
+                        <p>Orientação Sexual: {{ object.orientacao }}</p>
+                        <p>Idiomas: {{ object.idiomas }}</p>
+                        <p>PCD? {{ object.pcd }}</p>
+                        <p>Canta? {{ object.canta }}</p>
+                        <p>Extensão Vocal: {{ object.extensao_vocal }}</p>
+                        <div class="audio-player p-2">
+                            {% if object.audio6 %}
+                                <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio3.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio4.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio5.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio6.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                            {% elif object.audio5 %}
+                                <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio3.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio4.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio5.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                            {% elif object.audio4 %}
+                                <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio3.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio4.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                            {% elif object.audio3 %}
+                                <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio3.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                            {% elif object.audio2 %}
+                                <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                            {% else %}
+                                <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                            {% endif %}
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="bg-primary_black flex justify-center py-10">
+            <div class="p-8 w-10/12 relative">
+                <h2 class="text-2xl text-[#1EBABD] fw-bold">
+                    Dubladores Relacionados
+                </h2>
+                <div class="flex flex-wrap items-center min-w-full movie_lis">
+                    {% if vozes_relacionadas %}
+                        {% for dublador in vozes_relacionadas %}
+                            <div class="m-4 overflow-hidden flex-shrink-0 rounded-md cursor-pointer h-40 w-66">
+                                <a href="{% url 'vox:detalhesvoz' dublador.pk %}">
+                                    <img src="{{ dublador.foto.url }}" class="object-cover w-full h-full" alt="">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="mt-8 ml-4">Não há dubladores relacionados.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Pesquisa de Dubladores
+{% endblock %}
+
+{% block content %}
+
+    <style>
+
+    .image-container {
+        width: 200px; /* Defina o tamanho desejado para as fotos */
+        height: 200px;
+    }
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .result-row {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+    }
+    .result-column {
+        flex-basis: 20.33%; /* Define o tamanho de cada coluna para exibir 3 resultados por linha */
+    }
+
+    </style>
+
+    <main class='bg-primary_black min-h-screen w-full'>
+    <main class='bg-primary_black min-h-screen w-full'>
+        <section class='bg-primary_black  min-h-screen flex justify-center py-10'>
+            <div class="p-10 w-10/12 relative" >
+                <h2 class="text-[#1EBABD] text-3xl font-medium pt-6">
+                    Resultados da Busca
+                </h2>
+                <div class="column">
+                    <div class="p-10 flex-wrap justify-center">
+                        <div class="result-row">
+                        {% for dublador in object_list %}
+                            <div class="m-4 bg-[#2d2442] overflow-hidden flex-shrink-0 rounded-md cursor-pointer result-column">
+                                <a href="{% url 'vox:detalhesvoz' dublador.pk %}">
+                                    <p style="margin-bottom: 1px;">{{ dublador.nome_artistico }}</p>
+                                    <div class="image-container">
+                                        <img src="{{ dublador.foto.url }}" class="rounded mx-3 d-block" alt="Imagem Quadrada">
+                                    </div>
+                                </a>
+                            </div>
+                            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                                </div><div class="result-row">
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+
+ <!-- https://www.schoolofnet.com/forum/topico/checkbox-com-django-4752 -->
+
+<!-- https://www.youtube.com/watch?v=Cq-HCu165Rw -->
+
+<!-- https://github.com/matheusbattisti/horadecodar-django-youtube/tree/master/projeto_todo/todo -->
+
+{% endblock %}

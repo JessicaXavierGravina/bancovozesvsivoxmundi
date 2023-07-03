@@ -1,0 +1,688 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+    Seleção de Dubladores - VSI Vox Mundi
+{% endblock %}
+
+
+{% block head %}
+
+<style xmlns="http://www.w3.org/1999/html">
+
+        .audio-player {
+          display: inline-block;
+        }
+
+        .audio-player audio {
+          width: 250px;
+          height: 30px;
+        }
+
+
+         .image2 {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+          }
+
+
+
+         $itemGrow: 1.2;
+         $duration: 250ms;
+
+         html {
+            scroll-behavior: smooth;
+         }
+
+        body {
+            margin: 0;
+            background-color: #000;
+        }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(3,100%);
+            overflow:hidden;
+            scroll-behavior: smooth;
+
+            section {
+               width: 100%;
+               position: relative;
+               display: grid;
+               grid-template-columns: repeat(5, auto);
+               margin: 20px 0;
+
+            .item {
+                padding: 0 2px;
+                transition: $duration all;
+
+                &:hover {
+                    margin: 0 40px;
+                    transform: scale(1.2);
+                }
+        }
+
+        a {
+            position: absolute;
+            color: #fff;
+            text-decoration: none;
+            font-size: 6em;
+            background:rgb(0,0,0);
+            width: 80px;
+            padding: 20px
+            text-align: center;
+            z-index: 1;
+
+                &:nth-of-type(1) {
+                    top:0; bottom:0; left:0;
+                    background: linear-gradient(-90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+                }
+                &:nth-of-type(2) {
+                    top:0; bottom:0; right: 0;
+                    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+                }
+            }
+          }
+
+
+        // Remove the arrow for Mobile
+        @media only screen and (max-width: 600px) {
+            a.arrow__btn {
+            display:none;
+          }
+       }
+
+       .column {
+        flex-basis: 25%; /* Define a largura da coluna como 25% */
+        padding: 10px; /* Adiciona um espaçamento interno */
+        }
+
+
+        .dublador {
+          margin: 2em 0;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+<fieldset>
+    <aside>
+        <fieldset>
+    <div class="mt-20 ml-20 p-25 p-5 text-[#1EBABD]">
+            <legend>Escolha seu interesse:</legend>
+        </div>
+    <div class="ml-20 mr-20 px-20">
+    <div class="row">
+    <div class="col">
+
+        <legend class="fw-bold ml-2">Categoria</legend>
+
+             <form action="{% url 'vox:homevozes' %}" method="GET">
+
+            {% for categoria in object_list %}
+                <input type="checkbox" name="categorias" value="{{ categoria.0 }}" id="{{ categoria.0 }}">
+                <label for="{{ categoria.0 }}">{{ categoria.1 }}</label><br>
+            {% endfor %}
+            <button type="button" onclick="filtrarDubladores()">Filtrar</button>
+        </form>
+
+
+
+
+<script>
+    function filtrarDubladores() {
+        var checkboxes = document.querySelectorAll('input[name="categorias"]:checked');
+        var categorias = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+        });
+
+        var resultadoDubladores = document.getElementById('resultadoDubladores');
+        resultadoDubladores.innerHTML = '';
+
+        if (categorias.length > 0) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/buscar_dubladores?categorias=' + categorias.join(','), true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    exibirDubladores(response);
+                }
+            };
+            xhr.send();
+        } else {
+            resultadoDubladores.innerHTML = '<p>Nenhum dublador selecionado.</p>';
+        }
+    }
+
+    function exibirDubladores(dubladores) {
+        var resultadoDubladores = document.getElementById('resultadoDubladores');
+        resultadoDubladores.innerHTML = '';
+
+        if (dubladores.length > 0) {
+            var ul = document.createElement('ul');
+            dubladores.forEach(function(dublador) {
+                var li = document.createElement('li');
+                li.textContent = dublador.nome_artistico + ' - ' + dublador.dublador;
+                ul.appendChild(li);
+            });
+            resultadoDubladores.appendChild(ul);
+        } else {
+            resultadoDubladores.innerHTML = '<p>Nenhum dublador encontrado.</p>';
+        }
+    }
+</script>
+
+<form method="get" action="{% url 'vox:homevozes' %}" id="buscar">
+    <div class="categoria">
+        <div class="checkbox">
+            <input class="form-check-input" type="checkbox" name="categoria" value="infantil">
+            <input type="submit" value="Infantil">
+            <label class="form-check-label"></label>
+        </div>
+        <div class="checkbox">
+            <input class="form-check-input" type="checkbox" name="categoria" value="adolescente">
+            <input type="submit" value="Adolescente">
+            <label class="form-check-label"></label>
+        </div>
+        <div class="checkbox">
+            <input class="form-check-input" type="checkbox" name="categoria" value="jovem">
+            <input type="submit" value="Jovem">
+            <label class="form-check-label">
+                        </div>
+        <div class="ml-5">
+            <div class="checkbox">
+                <input class="form-check-input" type="checkbox" name="categoria" value="jovemleve">
+                <input type="submit" value="Leve">
+                <label class="form-check-label"></label>
+            </div>
+            <div class="checkbox">
+                <input class="form-check-input" type="checkbox" name="categoria" value="jovempesada">
+                <input type="submit" value="Pesada">
+                <label class="form-check-label"></label>
+            </div>
+        </div>
+        <div class="checkbox">
+            <input class="form-check-input" type="checkbox" name="categoria" value="adulto">
+            <input type="submit" value="Adulto">
+            <label class="form-check-label"></label>
+        </div>
+        <div class="ml-5">
+            <div class="checkbox">
+                <input class="form-check-input" type="checkbox" name="categoria" value="adultoleve">
+                <input type="submit" value="Leve">
+                <label class="form-check-label"></label>
+            </div>
+            <div class="checkbox">
+                <input class="form-check-input" type="checkbox" name="categoria" value="adultopesada">
+                <input type="submit" value="Pesada">
+                <label class="form-check-label"></label>
+            </div>
+        </div>
+        <div class="checkbox">
+            <input class="form-check-input" type="checkbox" name="categoria" value="meiaidade">
+            <input type="submit" value="Meia idade">
+            <label class="form-check-label"></label>
+        </div>
+        <div class="checkbox">
+            <input class="form-check-input" type="checkbox" name="categoria" value="idosa">
+            <input type="submit" value="Idosa">
+            <label class="form-check-label"></label>
+        </div>
+        <div class="ml-5">
+            <div class="checkbox">
+                <input class="form-check-input" type="checkbox" name="categoria" value="idosaleve">
+                <input type="submit" value="Leve">
+                <label class="form-check-label"></label>
+            </div>
+            <div class="checkbox">
+                <input class="form-check-input" type="checkbox" name="categoria" value="idosapesada">
+                <input type="submit" value="Pesada">
+                <label class="form-check-label"></label>
+            </div>
+        </div>
+    </div>
+            </div>
+
+    <div class="col">
+    <div class="genero">
+       <legend class="fw-bold ml-2">Gênero</legend>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="genero" value="Homem Cis" >
+                    <input type="submit" value="Homem Cis">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="genero" value="Homem Trans" >
+                    <input type="submit" value="Homem Trans">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="genero" value="Intersexo" >
+                    <input type="submit" value="Intersexo">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="genero" value="Mulher Cis" >
+                    <input type="submit" value="Mulher Cis">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="genero" value="Mulher Trans" >
+                    <input type="submit" value="Mulher Trans">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="genero" value="Não Binário" >
+                    <input type="submit" value="Não binário">
+                    <label class="form-check-label"></label>
+                </div>
+    </div>
+
+    <div class="canta">
+       <legend class="fw-bold ml-2">Canta</legend>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="canta" value="Sim" >
+                    <input type="submit" value="Sim">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="canta" value="Não" >
+                    <input type="submit" value="Não">
+                    <label class="form-check-label"></label>
+                </div>
+    </div>
+    </div>
+
+    <div class="col">
+    <div class="idiomas">
+      <legend class="fw-bold ml-2">Idiomas</legend>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="idiomas" value="ingles" >
+                    <input type="submit" value="Inglês">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="idiomas" value="espanhol" >
+                    <input type="submit" value="Espanhol">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="idiomas" value="outros" >
+                    <input type="submit" value="Outros">
+                    <label class="form-check-label"></label>
+                </div>
+      </div>
+
+      <div class="orientacao">
+      <legend class="fw-bold ml-2">Orientação Sexual</legend>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="orientacao" value="Assexual" >
+                    <input type="submit" value="Assexual">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="orientacao" value="Bissexual" >
+                    <input type="submit" value="Bissexual">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="orientacao" value="Heterossexual" >
+                    <input type="submit" value="Heterossexual">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="orientacao" value="Homossexual" >
+                    <input type="submit" value="Homossexual">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="orientacao" value="Pansexual" >
+                    <input type="submit" value="Pansexual">
+                    <label class="form-check-label"></label>
+                </div>
+      </div>
+  </div>
+
+  <div class="col">
+      <div class="etnia">
+      <legend class="fw-bold ml-2">Etnia</legend>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="etnia" value="Amarela">
+                    <input type="submit" value="Amarela">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="etnia" value="Branca">
+                    <input type="submit" value="Branca">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="etnia" value="Indigena">
+                    <input type="submit" value="Indigena">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="etnia" value="Parda">
+                    <input type="submit" value="Parda">
+                    <label class="form-check-label"></label>
+                </div>
+                <div class="checkbox">
+                    <input class="form-check-input" type="checkbox" name="etnia" value="Preta">
+                    <input type="submit" value="Preta">
+                    <label class="form-check-label"></label>
+                </div>
+      </div>
+          <br>
+            <input type="submit" value="Filtrar">
+              <div id="resultadoDubladores">
+            {% if dubladores %}
+                <ul>
+                    {% for dublador in dubladores %}
+                        <li>{{ dublador.nome_artistico }} - {{ dublador.dublador }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nenhum dublador encontrado.</p>
+            {% endif %}
+        </div>
+      </form>
+
+    </aside>
+
+
+<!--    <main>-->
+<!--    <section>-->
+<!--        <div class=" mt-10 ml-20 mr-20" style="display: flex; flex-wrap: wrap;" id="log">-->
+<!--            {% for dublador in object_list|dictsort:'nome_artistico' %}-->
+<!--            <div class="column">-->
+<!--                <div class="p-10" style="display: flex; align-items: center; gap: 2px;">-->
+<!--                    <div class="image-container">-->
+<!--                        <img src="{{ dublador.foto.url }}" class="rounded mx-3 d-block" alt="Imagem Quadrada">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <a href="{% url 'vox:detalhesvoz' dublador.id %}">-->
+<!--                            <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">{{ dublador.nome_artistico }}</p>-->
+<!--                        </a>-->
+<!--                        <div class="audio-player" style="margin-top: 2px;">-->
+<!--                            <audio src="{{ dublador.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--    </main>-->
+<!--    </section>-->
+
+</fieldset>
+
+  <script src="https://pyodide.cdn.iodide.io/pyodide.js"></script>
+
+<script>
+
+         function change() {
+          var categoriaCbs = document.querySelectorAll(".categoria input[type='checkbox']");
+          var generoCbs = document.querySelectorAll(".genero input[type='checkbox']");
+          var cantaCbs = document.querySelectorAll(".canta input[type='checkbox']");
+          var idiomasCbs = document.querySelectorAll(".idiomas input[type='checkbox']");
+          var orientacaoCbs = document.querySelectorAll(".orientacao input[type='checkbox']");
+          var etniaCbs = document.querySelectorAll(".etnia input[type='checkbox']");
+
+          var filters = {
+            categoria: getClassOfCheckedCheckboxes(categoriaCbs),
+            genero: getClassOfCheckedCheckboxes(generoCbs),
+            canta: getClassOfCheckedCheckboxes(cantaCbs),
+            idiomas: getClassOfCheckedCheckboxes(idiomasCbs),
+            orientacao: getClassOfCheckedCheckboxes(orientacaoCbs),
+            etnia: getClassOfCheckedCheckboxes(etniaCbs)
+          };
+
+          filterResults(filters);
+        }
+
+        function filterResults(filters) {
+  // Obtenha a referência à div result
+  var resultDiv = document.getElementById('result-div');
+
+  // Remova todos os resultados anteriores
+  resultDiv.innerHTML = '';
+
+
+  fetch('{% url 'vox:homevozes' %}', {
+    method: 'POST',
+    body: JSON.stringify(filters),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Insira os resultados na div result
+    data.forEach(result => {
+      var resultElement = document.createElement('div');
+      resultElement.textContent = result;
+      resultDiv.appendChild(resultElement);
+    });
+  })
+  .catch(error => {
+    console.error('Erro ao buscar resultados:', error);
+  });
+}
+
+        function getClassOfCheckedCheckboxes(checkboxes) {
+          var classes = [];
+
+          if (checkboxes && checkboxes.length > 0) {
+            for (var i = 0; i < checkboxes.length; i++) {
+              var cb = checkboxes[i];
+
+              if (cb.checked) {
+                classes.push(cb.getAttribute("rel"));
+              }
+            }
+          }
+
+          return classes;
+        }
+
+        function filterResults(filters) {
+          var rElems = document.querySelectorAll(".result div");
+          var hiddenElems = [];
+
+          if (!rElems || rElems.length <= 0) {
+            return;
+          }
+
+          for (var i = 0; i < rElems.length; i++) {
+            var el = rElems[i];
+
+            if (filters.categoria.length > 0) {
+              var isHidden = true;
+
+              for (var j = 0; j < filters.categoria.length; j++) {
+                var filter = filters.categoria[j];
+
+                if (el.classList.contains(filter)) {
+                  isHidden = false;
+                  break;
+                }
+              }
+
+              if (isHidden) {
+                hiddenElems.push(el);
+              }
+            }
+
+
+            if (filters.genero.length > 0) {
+            var isHidden = true;
+
+              for (var j = 0; j < filters.genero.length; j++) {
+                var filter = filters.genero[j];
+
+                if (el.classList.contains(filter)) {
+                  isHidden = false;
+                  break;
+                }
+              }
+
+              if (isHidden) {
+                hiddenElems.push(el);
+              }
+            }
+
+
+            if (filters.canta.length > 0) {
+            var isHidden = true;
+
+              for (var j = 0; j < filters.canta.length; j++) {
+                var filter = filters.canta[j];
+
+                if (el.classList.contains(filter)) {
+                  isHidden = false;
+                  break;
+                }
+              }
+
+              if (isHidden) {
+                hiddenElems.push(el);
+              }
+            }
+
+
+            if (filters.idiomas.length > 0) {
+            var isHidden = true;
+
+            for (var j = 0; j < filters.idiomas.length; j++) {
+                var filter = filters.idiomas[j];
+
+                if (el.classList.contains(filter)) {
+                  isHidden = false;
+                  break;
+                }
+              }
+
+              if (isHidden) {
+                hiddenElems.push(el);
+              }
+            }
+
+
+            if (filters.orientacao.length > 0) {
+            var isHidden = true;
+
+            for (var j = 0; j < filters.orientacao.length; j++) {
+                var filter = filters.orientacao[j];
+
+                if (el.classList.contains(filter)) {
+                  isHidden = false;
+                  break;
+                }
+              }
+
+              if (isHidden) {
+                hiddenElems.push(el);
+              }
+            }
+
+
+            if (filters.etnia.length > 0) {
+            var isHidden = true;
+
+            for (var j = 0; j < filters.etnia.length; j++) {
+                var filter = filters.etnia[j];
+
+                if (el.classList.contains(filter)) {
+                  isHidden = false;
+                  break;
+                }
+              }
+
+              if (isHidden) {
+                hiddenElems.push(el);
+              }
+            }
+
+          }
+
+
+        for (var i = 0; i < rElems.length; i++) {
+            rElems[i].style.display = "block";
+        }
+
+          if (hiddenElems.length <= 0) {
+            return;
+          }
+
+          for (var i = 0; i < hiddenElems.length; i++) {
+            hiddenElems[i].style.display = "none";
+          }
+        }
+
+  </script>
+
+
+
+
+    <style>
+
+        .column {
+          flex-basis: 30%;
+          padding: 30px;
+        }
+
+
+        .image-container {
+            width: 170px;
+            height: 170px;
+        }
+
+        .image-container img {
+            object-fit: cover;
+            width: 75%;
+            height: 75%;
+        }
+
+    </style>
+
+    <section class='bg-primary_black flex justify-center py-10'>
+        <div class="p-8 w-10/12 relative">
+            <h2 class="text-[#1EBABD] text-2xl">
+                Dubladores Vistos
+            </h2>
+            <div class="wrapper">
+                <section id="section1vistos" class="flex flex-nowrap items-center justify-center space-x-8">
+                    <a href="#section2vistos" class="arrow__btn text-6xl page">‹</a>
+                    {% for dublador in request.user.dubladores_vistos.all %}
+                    {% if forloop.counter <= 6 %}
+                    <div class="item h-64 w-1/4 m-4">
+                        <a href="{% url 'vox:detalhesvoz' dublador.id %}">
+                            <img src="{{ dublador.foto.url }}" class="rounded-md w-full h-full object-cover image2" alt="Imagem Carossel">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <a href="#section2vistos" class="arrow__btn text-6xl">›</a>
+                </section>
+
+                    {% if request.user.dubladores_vistos.all|length >= 7 %}
+                        <section id="section2vistos" class="flex flex-nowrap items-center justify-center">
+                            <a href="#section1vistos" class="arrow__btn text-6xl">‹</a>
+                            {% for dublador in request.user.dubladores_vistos.all %}
+                            {% if forloop.counter > 6 and forloop.counter <= 12 %}
+                            <div class="item h-64 w-1/4 m-4">
+                                <a href="{% url 'vox:detalhesvoz' dublador.id %}">
+                                    <img src="{{ dublador.foto.url }}" class="rounded-md w-full h-full object-cover image2" alt="Imagem Carossel">
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            <a href="#section1vistos" class="arrow__btn text-6xl">›</a>
+                        </section>
+                    {% endif %}
+    </section>
+
+{% endblock %}

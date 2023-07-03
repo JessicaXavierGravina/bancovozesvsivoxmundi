@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+Editar Perfil
+{% endblock %}
+
+{% block content %}
+
+    <header class="min-h-screen bg-purple bg-opacity-50 bg-blend-overlay showcase flex justify-center items-center bg-no-repeat bg-center relative"
+                style="background-image: url('{% static 'images/Logo Oficial - Horizontal.png' %}');">
+        <div class="z-10 h-full py-32 md:py-0 text-gray-100 text-center flex items-center flex-col">
+            <h2 class="text-2xl">Olá, {{ user.username }}</h2>
+            <form method="post">
+               {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Edite os campos abaixo para editar seu perfil</legend>
+                  {{ form|crispy }}
+                </fieldset>
+                <button class="bg-[#1EBABD] text-[#581D74] py-1 px-3 md:text-lg rounded-md" type="submit">Editar Perfil</button>
+            </form>
+            <small><a href="{% url 'vox:mudarsenha' %}">Quer mudar sua senha?</a></small>
+        </div>
+    </header>
+
+
+{% endblock %}
