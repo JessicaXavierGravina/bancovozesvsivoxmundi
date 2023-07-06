@@ -1,6 +1,6 @@
 # url - view - template
 from django.urls import path, reverse_lazy
-from .views import Homepage, Homevozes, Detalhesvoz, Pesquisa, Editarperfil, filtros
+from .views import Homepage, Homevozes, Detalhesvoz, Pesquisa, Editarperfil, Editardublador
 from django.contrib.auth import views as auth_view
 
 
@@ -18,6 +18,7 @@ urlpatterns = [
     path('mudarsenha/', auth_view.PasswordChangeView.as_view(template_name='editarperfil.html',
                                                              success_url=reverse_lazy('vox:homevozes')), name='mudarsenha'),
    # path('vozes/', buscar, name='buscar'),
-    path('vozes/', filtros, name='filtros'),
+    #path('vozes/', filtros, name='filtros'),
+    path('admin/vox/dubladore/<int:pk>', Editardublador.as_view(), name="editorialised"),
 
 ]
