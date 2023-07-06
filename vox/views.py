@@ -130,27 +130,27 @@ class Homevozes(LoginRequiredMixin, ListView):
 #
 #     return render(request, 'homevozes.html', context)
 
-def filtros(request):
-    if request.method == 'POST': # If the form has been submitted...
-        form = Dubladore(request.POST) # Um form com os dados de POST
-        if form.is_valid(): # All validation rules pass
-            categoria = form.cleaned_data['categoria']
-            etnia = form.cleaned_data['etnia']
-            genero = form.cleaned_data['genero']
-            orientacao = form.cleaned_data['orientacao']
-
-        else:
-            form = Dublare() # Um formulário vazio
-
-    return render_to_response('homevozes.html', {
-        'form': form,
-        'categoria': categoria,
-        'etnia': etnia,
-        'genero': genero,
-        'orientacao': orientacao
-    })
-
-
+# def filtros(request):
+#     if request.method == 'POST': # If the form has been submitted...
+#         form = Dubladore(request.POST) # Um form com os dados de POST
+#         if form.is_valid(): # All validation rules pass
+#             categoria = form.cleaned_data['categoria']
+#             etnia = form.cleaned_data['etnia']
+#             genero = form.cleaned_data['genero']
+#             orientacao = form.cleaned_data['orientacao']
+#
+#         else:
+#             form = Dublare() # Um formulário vazio
+#
+#     return render_to_response('homevozes.html', {
+#         'form': form,
+#         'categoria': categoria,
+#         'etnia': etnia,
+#         'genero': genero,
+#         'orientacao': orientacao
+#     })
+#
+#
 
 
 class Detalhesvoz(LoginRequiredMixin, DetailView):
@@ -186,6 +186,24 @@ class Pesquisa(LoginRequiredMixin, ListView):
             return None
 
 
+#ESSE FILTRO
+class Filtro(LoginRequiredMixin, ListView):
+    template_name = "buscar.html"
+    model = Dubladore
+
+    # object_list
+    def get_queryset(self):
+        termo_pesquisa = self.request.GET.get('query')
+        if termo_pesquisa:
+            object_list = Dubladore.objects.filter(categoria__icontains=termo_pesquisa)
+            return object_list
+        else:
+            return None
+
+
+
+
+
 class Editarperfil(LoginRequiredMixin, UpdateView):
     template_name = "editarperfil.html"
     model = Usuario
@@ -196,12 +214,26 @@ class Editarperfil(LoginRequiredMixin, UpdateView):
 
 
 
+class Editardublador(LoginRequiredMixin, DetailView):
+    template_name = "detalhesvoz.html"
+    model = Dubladore
 
+    def get(self, request, *args, **kwargs):
+        dublador = self.get_object()
+        usuario = request.user
+        usuario.dubladores_vistos.add(dublador)
+        return redirect('admin:vox_dubladore_change', object_id=dublador.pk)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dublador_atual = self.get_object()
+        vozes_relacionadas = Dubladore.objects.filter(categoria=dublador_atual.categoria)
+        context['vozes_relacionadas'] = vozes_relacionadas
+        return context
 
-
-
-
+class AdicionarDubladorView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        return redirect('/admin/vox/dubladore/add/')
 
 
 
