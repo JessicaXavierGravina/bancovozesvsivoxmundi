@@ -1,3 +1,10 @@
+# PAGINAÇÃO:
+# https://getbootstrap.com/docs/4.0/components/pagination/
+
+
+
+
+
 # FILTROS:
 
 # https://www.w3schools.com/howto/howto_js_filter_elements.asp

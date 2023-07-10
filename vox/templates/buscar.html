@@ -4,12 +4,174 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block titulo %}
-Teste
-{% endblock %}
 
 
-{% block head %}
+<body>
+    <div class="container">
+  <aside>
+     <legend class="fw-bold ml-2">Categoria</legend>
+            <div><input type="checkbox" name="categoria" value="Infantil" id="Infantil"><label for="Infantil">Infantil</label></div>
+            <div><input type="checkbox" name="categoria" value="Adolescente" id="Adolescente"><label for="Adolescente">Adolescente</label></div>
+            <div><input type="checkbox" name="categoria" value="Jovem" id="Jovem"><label for="Jovem">Jovem</label></div>
+            <div><input type="checkbox" name="categoria" value="JovemLeve" id="JovemLeve"><label for="JovemLeve">Jovem Leve</label></div>
+            <div><input type="checkbox" name="categoria" value="JovemPesada" id="JovemPesada"><label for="JovemPesada">Jovem Pesada</label></div>
+            <div><input type="checkbox" name="categoria" value="Adulto" id="Adulto"><label for="Adulto">Adulto</label></div>
+            <div><input type="checkbox" name="categoria" value="AdultoLeve" id="AdultoLeve"><label for="AdultoLeve">Adulto Leve</label></div>
+            <div><input type="checkbox" name="categoria" value="AdultoPesada" id="AdultoPesada"><label for="AdultoPesada">Adulto Pesada</label></div>
+            <div><input type="checkbox" name="categoria" value="Meia Idade" id="MeiaIdade"><label for="MeiaIdade">Meia Idade</label></div>
+            <div><input type="checkbox" name="categoria" value="Idosa" id="Idosa"><label for="Idosa">Idosa</label></div>
+            <div><input type="checkbox" name="categoria" value="IdosaLeve" id="IdosaLeve"><label for="IdosaLeve">Idosa Leve</label></div>
+            <div><input type="checkbox" name="categoria" value="IdosaPesada" id="IdosaPesada"><label for="IdosaPesada">Idosa Pesada</label></div>
+   </div>
+
+   <div class="col">
+       <legend class="fw-bold ml-2">Gênero</legend>
+
+             <div><input type="checkbox" name="genero" value="HomemCis" id="HomemCis"><label for="HomemCis">Homem Cis</label></div>
+             <div><input type="checkbox" name="genero" value="HomemTrans" id="HomemTrans"><label for="HomemTrans">Homem Trans</label></div>
+             <div><input type="checkbox" name="genero" value="Intersexo" id="Intersexo"><label for="Intersexo">Intersexo</label></div>
+             <div><input type="checkbox" name="genero" value="MulherCis" id="MulherCis"><label for="MulherCis">Mulher Cis</label></div>
+             <div><input type="checkbox" name="genero" value="MulherTrans" id="MulherTrans"><label for="MulherTrans">Mulher Trans</label></div>
+             <div><input type="checkbox" name="genero" value="NaoBinario" id="NaoBinario"><label for="NaoBinario">Não Binário</label></div>
+
+   <div class="col">
+        <legend class="fw-bold ml-2">Orientação Sexual</legend>
+              <div><input type="checkbox" name="orientacao" value="Assexual" id="Assexual"><label for="Assexual">Assexual</label></div>
+              <div><input type="checkbox" name="orientacao" value="Bissexual" id="Bissexual"><label for="Bissexual">Bissexual</label></div>
+              <div><input type="checkbox" name="orientacao" value="Heterossexual" id="Heterossexual"><label for="Heterossexual">Heterossexual</label></div>
+              <div><input type="checkbox" name="orientacao" value="Homossexual" id="Homossexual"><label for="Homossexual">Homossexual</label></div>
+              <div><input type="checkbox" name="orientacao" value="Pansexual" id="Pansexual"><label for="Pansexual">Pansexual</label></div>
+   </div>
+
+    <div class="col">
+        <legend class="fw-bold ml-2">Etnia</legend>
+          <div><input type="checkbox" name="etnia" value="Amarela" id="Amarela"><label for="Amarela">Amarela</label></div>
+          <div><input type="checkbox" name="etnia" value="Branca" id="Branca"><label for="Branca">Branca</label></div>
+          <div><input type="checkbox" name="etnia" value="Indigena" id="Indigena"><label for="Indigena">Indigena</label></div>
+          <div><input type="checkbox" name="etnia" value="Parda" id="Parda"><label for="Parda">Parda</label></div>
+          <div><input type="checkbox" name="etnia" value="Preta" id="Preta"><label for="Preta">Preta</label></div>
+
+        <legend class="fw-bold ml-2">PCD</legend>
+
+          <div><input type="checkbox" name="pcd" value="pcdsim" id="pcdsim"><label for="pcdsim">Sim</label></div>
+          <div><input type="checkbox" name="pcd" value="pcdnao" id="pcdnao"><label for="pcdnao">Não</label></div>
+    </div>
+  </aside>
+
+
+  <main>
+    <section>
+      <h2>Adriano Trotta (ELE)</h2>
+      <div class="AdultoLeve HomemCis Heterossexual Branca pcdnao">
+        <img src="C:\Users\jessica\PycharmProjects\bv_voxmundi\media\foto_dublador\adrianotrotta.jpg">
+        <h3>Adriano Trotta (ELE)</h3>
+        <p>Categoria de voz: Adulta Masculina Leve</p>
+        <p>Etnia: Branca</p>
+        <p>Genero: Homem Cis</p>
+        <p>Orientação Sexual: Assexual</p>
+      </div>
+
+      <div class="AdultoLeve MulherCis Bissexual Parda pcdnao">
+          <img src="{{ object.foto.url }}">
+<!--        <img src="C:\Users\jessica\PycharmProjects\bv_voxmundi\media\foto_dublador\Bruna_Mass.jpg">-->
+        <h3>Bruna Mass (ELA)</h3>
+        <pCategoria de voz: Adulta Feminina Leve</p>
+        <p>Etnia: Parda</p>
+        <p>Genero: Mulher Cis</p>
+        <p>Orientação Sexual: Bissexual</p>
+      </div>
+
+      <div class=" AdultoPesada MulherTrans Panssexual Branca pcdnao">
+        <img src="C:\Users\jessica\PycharmProjects\bv_voxmundi\media\foto_dublador\Zara_Dobura.jpg">
+        <h3>Zara Dobura (ELA)</h3>
+        <p>Categoria de voz: Adulta Feminina Pesada</p>
+        <p>Etnia: Branca</p>
+        <p>Genero: Mulher Trans</p>
+        <p>Orientação Sexual: Pansexual</p>
+      </div>
+
+
+
+
+      <div class="player guard bos east starting lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202681.png">
+        <h3>Kyrie Irving</h3>
+        <p>#11 | Guard</p>
+        <p>24.6 PPG 5 APG 3.6 RPG</p>
+        <p>[Boston Celtics]</p>
+        <p>Five-time All-Star | 2014 Kia All-Star Game MVP</p>
+      </div>
+      <div class="player guard forward cle east starting lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png">
+        <h3>LeBron James</h3>
+        <p>#23 | Forward-Guard</p>
+        <p>26.5 PPG 8.9 APG 8.1 RPG</p>
+        <p>[Cleveland Cavaliers]</p>
+        <p>CAPTAIN | 14-time All-Star | Four-time Kia NBA MVP</p>
+      </div>
+      <div class="player forward sas west reserves lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/200746.png">
+        <h3>LaMarcus Aldridge</h3>
+        <p>#12 | Forward</p>
+        <p>22.4 PPG 2 APG 8.4 RPG</p>
+        <p>[San Antonio Spurs]</p>
+        <p>Six-time All-Star | 2014-15 Second Team All-NBA</p>
+      </div>
+      <div class="player guard was east reserves lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203078.png">
+        <h3>Bradley Beal</h3>
+        <p>#3 | Guard</p>
+        <p>23.4 PPG 4.2 APG 4.5 RPG</p>
+        <p>[Washington Wizards]</p>
+        <p>First-time All-Star | 2012-13 First Team All-Rookie</p>
+      </div>
+      <div class="player guard mia east reserves lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201609.png">
+        <h3>Goran Dragic</h3>
+        <p>#7 | Guard</p>
+        <p>17.4 PPG 4.8 APG 4 RPG</p>
+        <p>[Miami Heat]</p>
+        <p>First-time All-Star | First player from Slovenia to earn All-Star honor</p>
+      </div>
+      <div class="player center det east reserves lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203083.png">
+        <h3>Andre Drummond</h3>
+        <p>#0 | Center</p>
+        <p>15.1 PPG 3.7 APG 15.7 RPG</p>
+        <p>[Detroit Pistons]</p>
+        <p>Second-time All-Star | 2015-16 NBA rebounding leader</p>
+      </div>
+      <div class="player forward okc west reserves lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202331.png">
+        <h3>Paul George</h3>
+        <p>#13 | Forward</p>
+        <p>22.4 PPG 3.1 APG 5.4 RPG</p>
+        <p>[Oklahoma City Thunder]</p>
+        <p>Five-time All-Star, third in a row | Three-time Third Team All-NBA</p>
+      </div>
+      <div class="player forward center cle east categoria reserves lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201567.png">
+        <h3>Kevin Love</h3>
+        <p>#0 | Forward-Center</p>
+        <p>17.9 PPG 1.6 APG 9.4 RPG</p>
+        <p>[Cleveland Cavaliers]</p>
+        <p>categoria | Five-time All-Star | 2011 Kia NBA Most Improved Player</p>
+      </div>
+      <div class="player guard ind east reserves lebron">
+        <img src="//ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203506.png">
+        <h3>Victor Oladipo</h3>
+        <p>#4 | Guard</p>
+        <p>24.4 PPG 4.1 APG 5.4 RPG</p>
+        <p>[Indiana Pacers]</p>
+        <p>First-time All-Star | No. 2 overall pick in 2013</p>
+      </div>
+
+
+
+    </section>
+  </main>
+</div>
+
 
     <style>
         h1 {
@@ -54,182 +216,94 @@ Teste
           margin: 0;
         }
 
+        h1 {
+          text-align: center;
+          margin-bottom: 0;
+        }
+        .container {
+          display: grid;
+          grid-template-columns: 1fr 3fr;
+          font-size: 13px;
+        }
+        aside {
+          padding: 0 1em;
+        }
+        aside div {
+          margin: .25em 0;
+        }
+        input {
+          margin-right: 5px;
+        }
+        main {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-column-gap: 30px;
+          margin-bottom: 5em;
+        }
+        .player {
+          margin: 2em 0;
+        }
+        .player h3 {
+          margin-bottom: 0;
+        }
+        p {
+          margin: 0;
+        }
+
+
+
     </style>
 
-{% endblock %}
 
-
-
-{% block content %}
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#search-form').on('submit', function(event) {
-                event.preventDefault();
-                search();
+                    // not exactly vanilla as there is one lodash function
+
+            var allCheckboxes = document.querySelectorAll('input[type=checkbox]');
+            var allPlayers = Array.from(document.querySelectorAll('.player'));
+            var checked = {};
+
+            getChecked('genero'); // startingReserves
+            getChecked('categoria'); // injured
+            getChecked('etnia'); // position
+            getChecked('orientacao'); // nbaTeam
+            getChecked('pcd'); // conference
+
+            Array.prototype.forEach.call(allCheckboxes, function (el) {
+              el.addEventListener('change', toggleCheckbox);
             });
 
-            function search() {
-                var categorias = [];
-                var generos = [];
-                var cantas = [];
-                var orientacoes = [];
-                var idioma = [];
-                var etnias = [];
-                var pcds = [];
-
-                $("input[name='categoria']:checked").each(function() {
-                    categorias.push($(this).val());
-                });
-
-                $("input[name='genero']:checked").each(function() {
-                    generos.push($(this).val());
-                });
-
-                $("input[name='canta']:checked").each(function() {
-                    cantas.push($(this).val());
-                });
-
-                $("input[name='orientacao']:checked").each(function() {
-                    orientacoes.push($(this).val());
-                });
-
-                $("input[name='idiomas']:checked").each(function() {
-                    idioma.push($(this).val());
-                });
-
-                $("input[name='etnia']:checked").each(function() {
-                    etnias.push($(this).val());
-                });
-
-                $("input[name='pcd']:checked").each(function() {
-                    pcds.push($(this).val());
-                });
-
-                $.ajax({
-                    url: "{% url 'vox:vozes' %}",
-                    type: "POST",
-                    data: {
-                        'categoria': categorias,
-                        'genero': generos,
-                        'canta': cantas,
-                        'orientacao': orientacoes,
-                        'idiomas': idiomas,
-                        'etnia': etnias,
-                        'pcd': pcds,
-                        'csrfmiddlewaretoken': "{{ csrf_token }}"
-                    },
-                    success: function(response) {
-                        displayResults(response);
-                    },
-                    error: function(xhr, errmsg, err) {
-                        console.log(xhr.status + ": " + xhr.responseText);
-                    }
-                });
+            function toggleCheckbox(e) {
+              getChecked(e.target.name);
+              setVisibility();
             }
 
-            function displayResults(results) {
-                var resultsContainer = $('#results-container');
-                resultsContainer.empty();
+            function getChecked(name) {
+              checked[name] = Array.from(document.querySelectorAll('input[name=' + name + ']:checked')).map(function (el) {
+                return el.value;
+              });
+            }
 
-                if (results.length > 0) {
-                    for (var i = 0; i < results.length; i++) {
-                        var dublador = results[i];
-                        var resultHTML = '<div>';
-                        resultHTML += '<p>Nome Artístico: ' + dublador.nome_artistico + '</p>';
-                        resultHTML += '<p>Categoria: ' + dublador.categoria + '</p>';
-                        resultHTML += '<p>Gênero: ' + dublador.genero + '</p>';
-                        resultHTML += '<p>Canta: ' + dublador.canta + '</p>';
-                        resultHTML += '<p>Orientação: ' + dublador.orientacao + '</p>';
-                        resultHTML += '<p>Idiomas: ' + dublador.idiomas + '</p>';
-                        resultHTML += '<p>Etnia: ' + dublador.etnia + '</p>';
-                        resultHTML += '<p>PCD: ' + dublador.pcd + '</p>';
-                        resultHTML += '</div>';
-
-                                                resultsContainer.append(resultHTML);
-                    }
+            function setVisibility() {
+              allPlayers.map(function (el) {
+                var genero = checked.genero.length ? _.intersection(Array.from(el.classList), checked.genero).length : true;
+                var categoria = checked.categoria.length ? _.intersection(Array.from(el.classList), checked.categoria).length : true;
+                var etnia = checked.etnia.length ? _.intersection(Array.from(el.classList), checked.etnia).length : true;
+                var orientacao = checked.orientacao.length ? _.intersection(Array.from(el.classList), checked.orientacao).length : true;
+                var pcd = checked.pcd.length ? _.intersection(Array.from(el.classList), checked.pcd).length : true;
+                if (genero && categoria && etnia && orientacao && pcd) {
+                  el.style.display = 'block';
                 } else {
-                    resultsContainer.html('<p>Nenhum resultado encontrado.</p>');
+                  el.style.display = 'none';
                 }
+              });
             }
-        });
     </script>
-</head>
-
-<body>
-    <div class="container">
-  <aside>
-     <legend class="fw-bold ml-2">Categoria</legend>
-            <div><input type="checkbox" name="categoria" value="Infantil" id="categoria"><label for="categoria">Infantil</label></div>
-            <div><input type="checkbox" name="categoria" value="Adolescente" id="categoria"><label for="categoria">Adolescente</label></div>
-            <div><input type="checkbox" name="categoria" value="Jovem" id="categoria"><label for="categoria">Jovem</label></div>
-            <div><input type="checkbox" name="categoria" value="Jovem Leve" id="categoria"><label for="categoria">Jovem Leve</label></div>
-            <div><input type="checkbox" name="categoria" value="Jovem Pesada" id="categoria"><label for="categoria">Jovem Pesada</label></div>
-            <div><input type="checkbox" name="categoria" value="Adulto" id="Acategoria"><label for="categoria">Adulto</label></div>
-            <div><input type="checkbox" name="categoria" value="Adulto Leve" id="categoria"><label for="categoria">Adulto Leve</label></div>
-            <div><input type="checkbox" name="categoria" value="Adulto Pesada" id="categoria"><label for="categoria">Adulto Pesada</label></div>
-            <div><input type="checkbox" name="categoria" value="Meia Idade" id="categoria"><label for="categoria">Meia Idade</label></div>
-            <div><input type="checkbox" name="categoria" value="Idosa" id="categoria"><label for="categoria">Idosa</label></div>
-            <div><input type="checkbox" name="categoria" value="Idosa Leve" id="categoria"><label for="categoria">Idosa Leve</label></div>
-            <div><input type="checkbox" name="categoria" value="Idosa Pesada" id="categoria"><label for="categoria">Idosa Pesada</label></div>
-   </div>
-
-   <div class="col">
-       <legend class="fw-bold ml-2">Gênero</legend>
-
-             <div><input type="checkbox" name="genero" value="Homem Cis" id="genero"><label for="genero">Homem Cis</label></div>
-             <div><input type="checkbox" name="genero" value="Homem Trans" id="genero"><label for="genero">Homem Trans</label></div>
-             <div><input type="checkbox" name="genero" value="Intersexo" id="genero"><label for="genero">Intersexo</label></div>
-             <div><input type="checkbox" name="genero" value="Mulher Cis" id="genero"><label for="genero">Mulher Cis</label></div>
-             <div><input type="checkbox" name="genero" value="Mulher Trans" id="genero"><label for="genero">Mulher Trans</label></div>
-             <div><input type="checkbox" name="genero" value="Não Binário" id="genero"><label for="genero">Não Binário</label></div>
-
-       <legend class="fw-bold ml-2">Canta</legend>
-              <div><input type="checkbox" name="canta" value="Sim" id="canta"><label for="canta">Sim</label></div>
-              <div><input type="checkbox" name="canta" value="Não" id="canta"><label for="canta">Não</label></div>
-    </div>
-
-   <div class="col">
-       <legend class="fw-bold ml-2">Idiomas</legend>
-              <div><input type="checkbox" name="idiomas" value="Inglês" id="idiomas"><label for="idiomas">Inglês</label></div>
-              <div><input type="checkbox" name="idiomas" value="Espanhol" id="idiomas"><label for="idiomas">Espanhol</label></div>
-              <div><input type="checkbox" name="idiomas" value="Outros" id="idiomas"><label for="idiomas">Outros</label></div>
-
-        <legend class="fw-bold ml-2">Orientação Sexual</legend>
-              <div><input type="checkbox" name="orientacao" value="Assexual" id="orientacao"><label for="orientacao">Assexual</label></div>
-              <div><input type="checkbox" name="orientacao" value="Bissexual" id="orientacao"><label for="orientacao">Bissexual</label></div>
-              <div><input type="checkbox" name="orientacao" value="Heterossexual" id="orientacao"><label for="orientacao">Heterossexual</label></div>
-              <div><input type="checkbox" name="orientacao" value="Homossexual" id="orientacao"><label for="orientacao">Homossexual</label></div>
-              <div><input type="checkbox" name="orientacao" value="Pansexual" id="orientacao"><label for="orientacao">Pansexual</label></div>
-   </div>
-
-    <div class="col">
-        <legend class="fw-bold ml-2">Etnia</legend>
-          <div><input type="checkbox" name="etnia" value="Amarela" id="etnia"><label for="etnia">Amarela</label></div>
-          <div><input type="checkbox" name="etnia" value="Branca" id="etnia"><label for="etnia">Branca</label></div>
-          <div><input type="checkbox" name="etnia" value="Indigena" id="etnia"><label for="etnia">Indigena</label></div>
-          <div><input type="checkbox" name="etnia" value="Parda" id="etnia"><label for="etnia">Parda</label></div>
-          <div><input type="checkbox" name="etnia" value="Preta" id="etnia"><label for="etnia">Preta</label></div>
-
-        <legend class="fw-bold ml-2">PCD</legend>
-
-          <div><input type="checkbox" name="pcd" value="Sim" id="pcd"><label for="pcd">Sim</label></div>
-          <div><input type="checkbox" name="pcd" value="Não" id="pcd"><label for="pcd">Não</label></div>
-    </div>
-  </aside>
-
-        <input type="submit" value="Buscar">
-
-    <div id="results-container"></div>
 
 
 
-    <button type="submit">Buscar</button>
-    </form>
 
-    <div id="results-container">
-        <!-- Aqui serão exibidos os resultados da pesquisa -->
-    </div>
 
-{% endblock %}
+
+
+

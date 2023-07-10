@@ -39,6 +39,7 @@ LISTA_ETNIA = (
     ("Indigena", "Indigena"),
     ("Parda", "Parda"),
     ("Preta", "Preta"),
+    ("Não Informado", "Não Informado"),
 
 )
 
@@ -49,6 +50,7 @@ LISTA_ORIENTACAOSEXUAL = (
     ("Heterossexual", "Heterossexual"),
     ("Homossexual", "Homossexual"),
     ("Pansexual", "Pansexual"),
+    ("Não Informado", "Não Informado"),
 
 )
 
@@ -60,6 +62,7 @@ LISTA_ID_GENERO = (
     ("Mulher Cis", "Mulher Cis"),
     (" Mulher Trans", " Mulher Trans"),
     ("Não Binário", "Não Binário"),
+    ("Não Informado", "Não Informado"),
 
 )
 
@@ -77,7 +80,7 @@ class Dubladore(models.Model):
     pcd = models.CharField(default="Não",max_length=3, choices=(('Sim', 'Sim'),('Não', 'Nâo')))
     canta = models.CharField(default="Não", max_length=3, choices=(('Sim', 'Sim'), ('Não', 'Nâo')))
     extensao_vocal = models.TextField(max_length=1000)
-    foto = models.ImageField(upload_to='foto_dublador')
+    foto = models.ImageField(upload_to='foto_dublador', default='default.png')
     audio = models.FileField(upload_to='music/')
     audio2 = models.FileField(upload_to='music/', blank = True)
     audio3 = models.FileField(upload_to='music/', blank = True)
@@ -88,6 +91,8 @@ class Dubladore(models.Model):
 
     def __str__(self):
         return self.nome_artistico
+
+
 class Usuario(AbstractUser):
     dubladores_vistos = models.ManyToManyField("Dubladore")
 
