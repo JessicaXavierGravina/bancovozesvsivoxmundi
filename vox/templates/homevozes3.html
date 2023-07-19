@@ -1,0 +1,1757 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+    Seleção de Dubladores - VSI Vox Mundi
+{% endblock %}
+
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+<style xmlns="http://www.w3.org/1999/html">
+
+    .object{
+      width:100px;
+      height:100px;
+      display:none;
+      flex-basis: calc(33.33% - 30px); /* Define a largura dos elementos para ocupar 1/3 do espaço disponível */
+      margin: 5px;
+    }
+
+    .show{
+      display:flex;
+    }
+
+    #no-results { display: none; }
+
+        .audio-player {
+          display: inline-block;
+        }
+
+        .audio-player audio {
+          width: 250px;
+          height: 30px;
+        }
+
+
+         .image2 {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+          }
+
+
+        .image-container {
+            width: 550px;
+            height: 550px;
+        }
+
+
+         $itemGrow: 1.2;
+         $duration: 250ms;
+
+         html {
+            scroll-behavior: smooth;
+         }
+
+        body {
+            margin: 0;
+            background-color: #000;
+        }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(3,100%);
+            overflow:hidden;
+            scroll-behavior: smooth;
+
+            section {
+               width: 100%;
+               position: relative;
+               display: grid;
+               grid-template-columns: repeat(5, auto);
+               margin: 20px 0;
+
+            .item {
+                padding: 0 2px;
+                transition: $duration all;
+
+                &:hover {
+                    margin: 0 40px;
+                    transform: scale(1.2);
+                }
+        }
+
+
+
+        // Remove the arrow for Mobile
+        @media only screen and (max-width: 600px) {
+            a.arrow__btn {
+            display:none;
+          }
+       }
+
+
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+
+
+        .container2 {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+
+</style>
+
+<section>
+<div class="container">
+
+    <div class="row">
+        <div class="col mt-20 ml-24 pl-10">
+      <legend class="fw-bold ml-3">Categoria</legend>
+          <div><input type="checkbox" id="infantil" onclick="check()">
+                <label for="infantil">Infantil</label></div>
+          <div><input type="checkbox" id="adolescente" onclick="check()">
+                <label for="adolescente">Adolescente</label></div>
+          <div><input type="checkbox" id="jovemleve" onclick="check()">
+                <label for="jovemleve">Jovem Leve</label></div>
+          <div><input type="checkbox" id="jovem" onclick="check()">
+                <label for="jovem">Jovem</label></div>
+          <div><input type="checkbox" id="jovempesada" onclick="check()">
+                <label for="jovempesada">Jovem Pesada</label></div>
+          <div><input type="checkbox" id="adultaleve" onclick="check()">
+                <label for="adultaleve">Adulta Leve</label></div>
+          <div><input type="checkbox" id="adulta" onclick="check()">
+                <label for="adulta">Adulta</label></div>
+          <div><input type="checkbox" id="adultapesada" onclick="check()">
+                <label for="adultapesada">Adulta Pesada</label></div>
+          <div><input type="checkbox" id="meiaidade" onclick="check()">
+                <label for="meiaidade">Meia Idade</label></div>
+          <div><input type="checkbox" id="idosaleve" onclick="check()">
+                <label for="idosaleve">Idosa Leve</label></div>
+          <div><input type="checkbox" id="idosa" onclick="check()">
+                <label for="idosa">Idosa</label></div>
+          <div><input type="checkbox" id="idosapesada" onclick="check()">
+                <label for="idosapesada">Idosa Pesada</label></div>
+
+</div>
+<div class="col mt-20 ">
+      <legend class="fw-bold ml-3">Gênero</legend>
+            <div><input type="checkbox" id="homemcis" onclick="check()">
+                <label for="homemcis">Homem Cis</label></div>
+            <div><input type="checkbox" id="homemtrans" onclick="check()">
+                <label for="homemtrans">Homem Trans</label></div>
+            <div><input type="checkbox" id="intersexo" onclick="check()">
+                <label for="intersexo">Intersexo</label></div>
+            <div><input type="checkbox" id="mulhercis" onclick="check()">
+                <label for="mulhercis">Mulher Cis</label></div>
+            <div><input type="checkbox" id="mulhertrans" onclick="check()">
+                <label for="mulhertrans">Mulher Trans</label></div>
+            <div><input type="checkbox" id="naobinario" onclick="check()">
+                <label for="naobinario">Não Binário</label></div>
+
+
+      <legend class="fw-bold ml-3">PCD</legend>
+          <div><input type="checkbox" id="pcdsim" onclick="check()">
+                <label for="pcdsim">Sim</label></div>
+          <div><input type="checkbox" id="pcdnao" onclick="check()">
+                <label for="pcdnao">Nao</label></div>
+
+</div>
+
+<div class="col mt-20">
+      <legend class="fw-bold ml-3">Etnia</legend>
+          <div><input type="checkbox" id="amarela" onclick="check()">
+                <label for="amarela">Amarela</label></div>
+          <div><input type="checkbox" id="branca" onclick="check()">
+                <label for="branca">Branca</label></div>
+          <div><input type="checkbox" id="indigena" onclick="check()">
+                <label for="indigena">Indigena</label></div>
+          <div><input type="checkbox" id="parda" onclick="check()">
+                <label for="parda">Parda</label></div>
+          <div><input type="checkbox" id="preta" onclick="check()">
+                <label for="preta">Preta</label></div>
+
+        <legend class="fw-bold ml-3">Orientação Sexual</legend>
+              <div><input type="checkbox" id="assexual" onclick="check()">
+                    <label for="assexual">Assexual</label></div>
+              <div><input type="checkbox" id="bissexual" onclick="check()">
+                    <label for="bissexual">Bissexual</label></div>
+              <div><input type="checkbox" id="heterossexual" onclick="check()">
+                    <label for="heterossexual">Heterossexual</label></div>
+              <div><input type="checkbox" id="homossexual" onclick="check()">
+                    <label for="homossexual">Homossexual</label></div>
+              <div><input type="checkbox" id="pansexual" onclick="check()">
+                    <label for="pansexual">Pansexual</label></div>
+      </div>
+
+    <div class="col mt-20 mr-20">
+        <legend class="fw-bold ml-3">Canta</legend>
+              <div><input type="checkbox" id="cantasim" onclick="check()">
+                    <label for="cantasim">Sim</label></div>
+              <div><input type="checkbox" id="cantanao" onclick="check()">
+                    <label for="cantanao">Nao</label></div>
+
+
+              <legend class="fw-bold ml-3">Idiomas</legend>
+              <div><input type="checkbox" id="ingles" onclick="check()">
+                    <label for="ingles">Inglês</label></div>
+              <div><input type="checkbox" id="espanhol" onclick="check()">
+                    <label for="espanhol">Espanhol</label></div>
+              <div><input type="checkbox" id="outro" onclick="check()">
+                    <label for="outro">Outro</label></div>
+        </div>
+      </div>
+</div>
+
+</div>
+
+
+
+    <style>
+  /* CSS para centralizar as caixas de seleção */
+    .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* CSS para os itens */
+    .item {
+    width: calc(30% - 30px); /* Define a largura dos itens para ocupar 1/3 do espaço disponível */
+    margin: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    }
+
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;/* Ajuste para alinhar à esquerda */
+    margin: -35px; /* Ajuste as margens para remover o espaço extra entre as colunas */
+  }
+
+
+
+  .wrapper::after {
+    content: "";
+    flex: auto;
+  }
+
+</style>
+
+
+
+    <section id="container" class="container flex flex-wrap">
+        <div class="wrapper">
+	<div class="item">
+        <div class="object homemcis pcdnao adultaleve branca assexual cantanao ingles">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/adrianotrotta.jpg" alt="Imagem">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/2">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Adriano Trotta (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/adrianotrotta.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+    </div>
+	<div class="item">
+        <div class="object homemcis pcdnao adulta branca heterossexual cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/AlexandreMonari.jpg" alt="Imagem2">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/1">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Alexandre Monari (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/Audio_AlexandreMonari.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+    </div>
+	<div class="item">
+        <div class="object homemcis pcdnao idosaleve branca heterossexual cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/LuizNunes.jpg" alt="Imagem3">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/3">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Luiz Nunes (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/LuizNunes.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+    </div>
+	<div class="item">
+         <div class="object item parda mulhercis heterossexual pcdnao jovemleve ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/BrunaMatta.png" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/4">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Bruna Matta (ELA)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/BrunaMatta.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         </div>
+    </div>
+
+	<div class="item">
+        <div class="object item preta homemcis bissexual pcdnao jovemleve ingles espanhol cantanao">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/CaioFreire.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/6">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;"> Caio Freire (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/CAIOFREIREFALADO.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="/media/music/CAIOFREIREJOVEM.wav"" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="/media/music/CAIOFREIRECRIANCA.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+    </div>
+
+	<div class="item">
+         <div class="object item branca homemcis adolescente heterossexual pcdnao ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/CaioMariano.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/5">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;"> Caio Mariano (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/CaioMariano.m4a" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+    </div>
+	<div class="item">
+        <div class="object item branca mulhercis bissexual pcdnao jovemleve  ingles espanhol cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/CarolSeverian.jpeg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/7">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">  Carol Severian (ELA)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/CarolSeverian.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+    </div>
+
+
+
+            <div class="item">
+                 <div class="object item branca homemcis heterossexual pcdnao adultaleve  ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/CelsoHenrique.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/8">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Celso Henrique (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/CELSOHENRIQUEVOZESDESENHOS.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao adultaleve  Espanhol cantasim">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/ChristianoTorreao.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/9">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Christiano Torreão (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/christianotorreao.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item preta homemcis homossexual pcdnao jovemleve  ingles cantasim">
+                 <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/DanielSelles.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/10">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Daniel Selles (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/DanielSelles.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+
+            <div class="item">
+                <div class="object item branca mulhercis bissexual pcdnao jovemleve infantil cantasim">
+                  <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                      <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                          <div class="image-container rounded mx-3 d-block">
+                              <img src="/media/foto_dublador/AnaPaulaSchneiderfoto.jpeg" alt="Imagem4">
+                          </div>
+                          <div>
+                              <a href="http://127.0.0.1:8000/vozes/31">
+                                  <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Ana Paula Schneider (ELA)</p>
+                              </a>
+                              <div class="audio-player" style="margin-top: 2px;">
+                                  <audio src="/media/music/AnaPaulaSchneiderCaricata.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+
+
+            <div class="item">
+                <div class="object item branca homemcis homossexual pcdnao adultaleve ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class="image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Gustavo_Vergani.jpeg" alt="Imagem">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/32">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Gustavo Vergani (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/GUSTAVO_VERGANI.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="item">
+                 <div class="object item branca homemcis heterossexual pcdnao adultaleve cantanao">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Filipe_Teofilo.jpeg" alt="Imagem2">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/33">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Filipe Teófilo (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/Filipe_Teofilo.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="item">
+                <div class="object item branca mulhercis heterossexual pcdnao adultaleve ingles cantanao">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Thayná_Cavalcanti.jpeg" alt="Imagem3">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/34">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Thayná Cavalcanti (ELA)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/Thayna_Cavalcanti.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="object item branca homemcis homossexual pcdnao adulta ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Roberto_Rocha.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/35">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Roberto Rocha (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/RobertoRocha.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                 <div class="object item branca homemcis heterossexual pcdnao adultapesada ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Samuel_Mota.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/38">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Samuel Mota (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/Samuel_Mota.mp4" class="m-1" controls controlsList="nodownload"></audio>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="item">
+                <div class="object item branca mulhercis bissexual pcdnao adolescente infantil ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Sofia_Manso.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/39">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Sofia Manso (ELA)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/Sofia_Manso.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao adulta ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Marcelo_SALSICHA.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/40">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Marcelo 'Salsicha' Caodaglio (ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/Marcelo_SALSICHA.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis homossexual pcdnao jovemleve ingles cantasim">
+                <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Filipe_Gimenez.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/41">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Filipe Gimenez(ELE)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/Filipe_Gimenez.wav" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca mulhercis heterossexual pcdnao adultaleve infantil outro espanhol ingles cantasim">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Mana_Muniz.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/42">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Mana Muniz (ELA)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/ManaMuniz_natural.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="/media/music/ManaMuniz_infantil.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                 <div class="object item branca mulhercis heterossexual pcdnao adultaleve infantil cantasim">
+                    <div class="MT-20 ml-15 mr-15" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/DeniseSperandelli.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/11">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Denise Sperandelli (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/DeniseSperandelli.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="item">
+                <div class="object item amarela mulhercis heterossexual pcdnao jovempesada cantanao">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/ericakou.jpeg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/12">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Érica Kou (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/ericakou.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao adulta espanhol cantanao">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                          <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                              <div class=" image-container rounded mx-3 d-block">
+                                  <img src="/media/foto_dublador/FabioMatjas.jpg" alt="Imagem4">
+                              </div>
+                              <div>
+                                  <a href="http://127.0.0.1:8000/vozes/13">
+                                      <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Fabio Matjas (ELE)</p>
+                                  </a>
+                                  <div class="audio-player" style="margin-top: 2px;">
+                                      <audio src="/media/music/FabioMatjas.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item parda homemcis homossexual pcdnao jovempesada cantanao">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/FelipeMarques.jpeg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/14">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Felipe Marques (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/FelipeMarques.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="object item preta homemcis homossexual pcdnao jovemleve infantil cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/GIOVANNIMAMEDE.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/15">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Giovanni Mamede (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/GIOVANNIMAMEDE_1.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/GIOVANNIMAMEDE_2.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis homossexual pcdnao adultapesada ingles cantanao">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/GUSTAVOVERGANI.jpeg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/32">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Gustavo Vergani (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/GUSTAVOVERGANI.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/GUSTAVOVERGANI1.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao adultaleve ingles cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/LeandroLoureiro.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/17">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Leandro Loureiro (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/LeandroLoureiro.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item preta homemcis homossexual pcdnao adultapesada cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class="image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/MarceloSandryni.jpeg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/18">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Marcelo Sandryni (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/MARCELOSANDRYNI.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca mulhercis homossexual pcdnao jovempesada infantil ingles outro cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/MariGuedes.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/19">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Mari Guedes (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/MariGuedescomum.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/MariGuedesmenininha.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/MariGuedesmenininho.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="item">
+                 <div class="object item branca mulhercis bissexual pcdnao jovemleve infantilfemina ingles espanhol outro cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/MaryMinóboli.jpeg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/20">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Mary Minóboli (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/MaryMinóboli.m4a" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
+            </div>
+
+            <div class="item">
+                <div class="object item amarela mulhercis heterossexual pcdnao adulta outro espanhol ingles cantasim">
+                 <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                    <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                        <div class=" image-container rounded mx-3 d-block">
+                            <img src="/media/foto_dublador/Carla_Masumoto.jpg" alt="Imagem4">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:8000/vozes/43">
+                                <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Carla Masumoto (ELA)</p>
+                            </a>
+                            <div class="audio-player" style="margin-top: 2px;">
+                                <audio src="/media/music/Carla_Masumoto_.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="/media/music/Carla_Masumoto_1.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                <audio src="/media/music/Carla_Masumoto_Senhora.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="object item preta homemcis homossexual pcdnao adultapesada cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/Vagner_Santos.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/44">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Vagner Santos (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/Vagner_Santos_.m4a" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="object item branca mulhertrans pansexual pcdnao jovemleve outro espanhol ingles cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/Zara_Dobura.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/50">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Zara Dobura (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/Zara_Dobura.wavv" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item parda homemcis bissexual pcdnao adolescente infantil cantasim">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                          <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                              <div class=" image-container rounded mx-3 d-block">
+                                  <img src="/media/foto_dublador/Arthur_Salerno.jpg" alt="Imagem4">
+                              </div>
+                              <div>
+                                  <a href="http://127.0.0.1:8000/vozes/45">
+                                      <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Arthur Salerno (ELE)</p>
+                                  </a>
+                                  <div class="audio-player" style="margin-top: 2px;">
+                                      <audio src="/media/music/Arthur_Salerno_Voz_Normal.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                  <audio src="/media/music/Arthur_Salerno_voz_Criança.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+
+
+            </div>
+
+            <div class="item">
+                <div class="object item preta mulhercis heterossexual pcdnao adultapesada ingles cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/vany_americo.jpeg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/46">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Vany Americo (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/Vany_Americo.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/Vany_Americo_1.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao adolescente jovempesada adulto cantanao">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                          <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                              <div class=" image-container rounded mx-3 d-block">
+                                  <img src="/media/foto_dublador/Rafael_Rheda.jpeg" alt="Imagem4">
+                              </div>
+                              <div>
+                                  <a href="http://127.0.0.1:8000/vozes/47">
+                                      <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Rafael Rheda (ELE)</p>
+                                  </a>
+                                  <div class="audio-player" style="margin-top: 2px;">
+                                  <audio src="/media/music/Rafael_Rheda.wa" class="m-1" controls controlsList="nodownload"></audio>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+
+
+
+            </div>
+
+
+            <div class="item">
+                 <div class="object item amarela homemcis homossexual pcdnao jovem adulta espanhol ingles cantasim">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                          <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                              <div class=" image-container rounded mx-3 d-block">
+                                  <img src="/media/foto_dublador/Lucas_Miagusuku.jpg" alt="Imagem4">
+                              </div>
+                              <div>
+                                  <a href="http://127.0.0.1:8000/vozes/48">
+                                      <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Lucas Miagusuku (ELE)</p>
+                                  </a>
+                                  <div class="audio-player" style="margin-top: 2px;">
+                                  <audio src="/media/music/Lucas_Miagusuku.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="item">
+                <div class="object item  homemcis heterossexual pcdnao jovem adultaleva cantasim">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                          <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                              <div class=" image-container rounded mx-3 d-block">
+                                  <img src="/media/foto_dublador/Kleber_Brianez.jpeg" alt="Imagem4">
+                              </div>
+                              <div>
+                                  <a href="http://127.0.0.1:8000/vozes/49">
+                                      <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Kleber Brianez (ELE)</p>
+                                  </a>
+                                  <div class="audio-player" style="margin-top: 2px;">
+                                  <audio src="/media/music/KleberBRianez_.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+
+
+            </div>
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao jovem adultaleve espanhol ingles cantasim">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                          <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                              <div class=" image-container rounded mx-3 d-block">
+                                  <img src="/media/foto_dublador/Guilherme_Maia.png" alt="Imagem4">
+                              </div>
+                              <div>
+                                  <a href="http://127.0.0.1:8000/vozes/51">
+                                      <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Guilherme Maia (ELE)</p>
+                                  </a>
+                                  <div class="audio-player" style="margin-top: 2px;">
+                                  <audio src="/media/music/Guilherme_Maia.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="object item branca mulhercis heterossexual pcdnao adulta infantil adolescente espanhol ingles cantasim">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/Karen_Padrao.JPG" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/36">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Karen Padrão (ELA</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/001_SAMPLE_KAREN_PADRÃO_CRIANÇA_2KXEh2X.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/002_SAMPLE_KAREN_PADRÃO_ADOLESCENTE_QsSwxGy.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/003_SAMPLE_KAREN_PADRÃO_JOVEM_gFbkAnp.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/004_SAMPLE_KAREN_PADRÃO_ADULTO_bCMcKiU.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/005_SAMPLE_KAREN_PADRÃO_ADULTO_MADURO_3C8Tqdd.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                    <audio src="/media/music/006_SAMPLE_KAREN_PADRÃO_GRAVE_TkIii5Z.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao adultaleve ingles espanhol cantasim">
+                    <div class="ml-15 mr-15" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/MAYKEZIEMANN.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/21">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Mayke Ziemann (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/MAYKEZIEMANN.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao jovempesado ingles espanhol cantanao">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/RenanReis.JPG" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/22">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Renan Reis (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/RenanReis.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+
+            <div class="item">
+                <div class="object item parda homemcis heterossexual pcdnao adultapesada ingles espanhol cantanao">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/DIGAOVICENTE.jpeg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/23">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Digão Vicente (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/DIGAOVICENTE.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+
+
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca mulhercis bissexual pcdnao jovemleve infantil ingles cantasim">
+                  <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                      <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                          <div class=" image-container rounded mx-3 d-block">
+                              <img src="/media/foto_dublador/SimoneEvanz.jpeg" alt="Imagem4">
+                          </div>
+                          <div>
+                              <a href="http://127.0.0.1:8000/vozes/24">
+                                  <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Simone Evanz (ELA)</p>
+                              </a>
+                              <div class="audio-player" style="margin-top: 2px;">
+                                  <audio src="/media/music/simoneEvanz_1.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                  <audio src="/media/music/SimoneEvanz_SotaqueCE.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                  <audio src="/media/music/SimoneEvanz_sotaquePE.wav" class="m-1" controls controlsList="nodownload"></audio>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+            </div>
+
+
+            <div class="item">
+                 <div class="object item branca mulhercis heterossexual pcdnao adolescente infantil ingles cantasim">
+                  <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                      <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/Tata_Saraiva.jpeg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/25">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Tata Saraiva (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/Tata_Saraiva.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="item">
+                 <div class="object item branca mulhercis bissexual pcdnao adultapesada cantanao">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/VERABONILHA.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/26">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Vera Bonilha (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/VERABONILHA.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="item">
+                <div class="object item parda mulhercis bissexual pcdnao  infantil infantil adolescente adultaleve ingles espanhol cantanao">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/Bruna_Mass.jpg" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/27">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Bruna Mass (ELA)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/Bruna_Mass.mp4" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis heterossexual pcdnao adultaleve cantanao">
+                    <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                        <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                            <div class=" image-container rounded mx-3 d-block">
+                                <img src="/media/foto_dublador/Bruno_Sangregorio_3x4.webp" alt="Imagem4">
+                            </div>
+                            <div>
+                                <a href="http://127.0.0.1:8000/vozes/28">
+                                    <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Bruno Sangregorio (ELE)</p>
+                                </a>
+                                <div class="audio-player" style="margin-top: 2px;">
+                                    <audio src="/media/music/Bruno_Sangregorio.wav" class="m-1" controls controlsList="nodownload"></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item preta mulhercis heterossexual pcdnao adultaleve cantasim">
+                 <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                     <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                         <div class=" image-container rounded mx-3 d-block">
+                             <img src="/media/foto_dublador/Tania_Viana.jpg" alt="Imagem4">
+                         </div>
+                         <div>
+                             <a href="http://127.0.0.1:8000/vozes/29">
+                                 <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Tania Viana (ELA)</p>
+                             </a>
+                             <div class="audio-player" style="margin-top: 2px;">
+                                 <audio src="/media/music/Tania_Viana.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca homemcis homossexual pcdnao adultaleve ingles cantasim">
+                  <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                      <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                          <div class=" image-container rounded mx-3 d-block">
+                              <img src="/media/foto_dublador/Marcelo_Campos.jpg" alt="Imagem4">
+                          </div>
+                          <div>
+                              <a href="http://127.0.0.1:8000/vozes/30">
+                                  <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Marcelo Campos (ELE)</p>
+                              </a>
+                              <div class="audio-player" style="margin-top: 2px;">
+                                  <audio src="/media/music/Marcelo_Campos.mp3" class="m-1" controls controlsList="nodownload"></audio>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+
+            <div class="item">
+                <div class="object item branca  mulhercis heterossexual pcdnao adutafeminina ingles cantanao">
+                      <div class="mt-20" style="display: flex; flex-wrap: wrap;">
+                          <div class="p-10" style="display: flex; align-items: center; gap: 2px;">
+                              <div class=" image-container rounded mx-3 d-block">
+                                  <img src="/media/foto_dublador/Agnes_Lealt.jpg" alt="Imagem4">
+                              </div>
+                              <div>
+                                  <a href="http://127.0.0.1:8000/vozes/51">
+                                      <p class="text-[#1EBABD] text-2xl" style="margin-bottom: 1px;">Agnes Lealt (ELA)</p>
+                                  </a>
+                                  <div class="audio-player" style="margin-top: 2px;">
+                                  <audio src="/media/music/Agnes_LealtTina_Hicks_AllAmerican.mp4" class="m-1" controls controlsList="nodownload"></audio>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+            </div>
+
+
+            <div class="item">
+
+
+            </div>
+
+            <div class="item">
+
+
+            </div>
+
+
+            <div class="item">
+
+
+            </div>
+
+
+            <div class="item">
+
+
+            </div>
+
+
+
+
+    </div>
+</section>
+
+
+
+
+<script>
+
+    function showAllDubladores() {
+      var dubladores = document.getElementsByClassName('object');
+      for (var i = 0; i < dubladores.length; i++) {
+        dubladores[i].style.display = 'block';
+      }
+    }
+
+    // filter();
+
+      function check() {
+      var filters = {
+        genero: [],
+        pcd: [],
+        categoria: [],
+        etnia: [],
+        orientacao: [],
+        canta: [],
+        idiomas: []
+      };
+
+        // GÊNERO
+        var checkHomemcis = document.getElementById('homemcis').checked;
+        var checkHomemtrans = document.getElementById('homemtrans').checked;
+        var checkIntersexo = document.getElementById('intersexo').checked;
+        var checkMulhercis = document.getElementById('mulhercis').checked;
+        var checkMulhertrans = document.getElementById('mulhertrans').checked;
+        var checkNaobinario = document.getElementById('naobinario').checked;
+
+        if (checkHomemcis) {
+          filters.genero.push('homemcis');
+        }
+        if (checkHomemtrans) {
+          filters.genero.push('homemtrans');
+        }
+        if (checkIntersexo) {
+          filters.genero.push('intersexo');
+        }
+        if (checkMulhercis) {
+          filters.genero.push('mulhercis');
+        }
+        if (checkMulhertrans) {
+          filters.genero.push('mulhertrans');
+        }
+        if (checkNaobinario) {
+          filters.genero.push('naobinario');
+        }
+
+        // PCD
+        var checkpcdnao = document.getElementById('pcdnao').checked;
+        var checkPcdnao = document.getElementById('pcdnao').checked;
+
+        if (checkpcdnao) {
+          filters.pcd.push('pcdnao');
+        }
+        if (checkPcdnao) {
+          filters.pcd.push('pcdnao');
+        }
+
+        // CATEGORIA
+        var checkInfantil = document.getElementById('infantil').checked;
+        var checkAdolescente = document.getElementById('adolescente').checked;
+        var checkjovemleve = document.getElementById('jovemleve').checked;
+        var checkjovem = document.getElementById('jovem').checked;
+        var checkjovempesada = document.getElementById('jovempesada').checked;
+        var checkAdultaleve = document.getElementById('adultaleve').checked;
+        var checkAdulta = document.getElementById('adulta').checked;
+        var checkAdultapesada = document.getElementById('adultapesada').checked;
+        var checkMeiaidade = document.getElementById('meiaidade').checked;
+        var checkIdosaleve = document.getElementById('idosaleve').checked;
+        var checkIdosa = document.getElementById('idosa').checked;
+        var checkIdosapesada = document.getElementById('idosapesada').checked;
+
+        if (checkInfantil) {
+          filters.categoria.push('infantil');
+        }
+        if (checkAdolescente) {
+          filters.categoria.push('adolescente');
+        }
+        if (checkjovemleve) {
+          filters.categoria.push('jovemleve');
+        }
+        if (checkjovem) {
+          filters.categoria.push('jovem');
+        }
+        if (checkjovempesada) {
+          filters.categoria.push('jovempesada');
+        }
+        if (checkAdultaleve) {
+          filters.categoria.push('adultaleve');
+        }
+        if (checkAdulta) {
+          filters.categoria.push('adulta');
+        }
+        if (checkAdultapesada) {
+          filters.categoria.push('adultapesada');
+        }
+        if (checkMeiaidade) {
+          filters.categoria.push('meiaidade');
+        }
+        if (checkIdosaleve) {
+          filters.categoria.push('idosaleve');
+        }
+        if (checkIdosa) {
+          filters.categoria.push('idosa');
+        }
+        if (checkIdosapesada) {
+          filters.categoria.push('idosapesada');
+        }
+
+        // ETNIA
+        var checkAmarela = document.getElementById('amarela').checked;
+        var checkBranca = document.getElementById('branca').checked;
+        var checkIndigena = document.getElementById('indigena').checked;
+        var checkParda = document.getElementById('parda').checked;
+        var checkPreta = document.getElementById('preta').checked;
+
+        if (checkAmarela) {
+          filters.etnia.push('amarela');
+        }
+        if (checkBranca) {
+          filters.etnia.push('branca');
+        }
+        if (checkIndigena) {
+          filters.etnia.push('indigena');
+        }
+        if (checkParda) {
+          filters.etnia.push('parda');
+        }
+        if (checkPreta) {
+          filters.etnia.push('preta');
+        }
+
+        // ORIENTAÇÃO
+        var checkAssexual = document.getElementById('assexual').checked;
+        var checkBissexual = document.getElementById('bissexual').checked;
+        var checkHeterossexual = document.getElementById('heterossexual').checked;
+        var checkHomossexual = document.getElementById('homossexual').checked;
+        var checkPansexual = document.getElementById('pansexual').checked;
+
+        if (checkAssexual) {
+          filters.orientacao.push('assexual');
+        }
+        if (checkBissexual) {
+          filters.orientacao.push('bissexual');
+        }
+        if (checkHeterossexual) {
+          filters.orientacao.push('heterossexual');
+        }
+        if (checkHomossexual) {
+          filters.orientacao.push('homossexual');
+        }
+        if (checkPansexual) {
+          filters.orientacao.push('pansexual');
+        }
+
+        // CANTA
+        var checkCantasim = document.getElementById('cantasim').checked;
+        var checkCantanao = document.getElementById('cantanao').checked;
+
+        if (checkCantasim) {
+          filters.canta.push('cantasim');
+        }
+        if (checkCantanao) {
+          filters.canta.push('cantanao');
+        }
+
+        // IDIOMAS
+        var checkIngles = document.getElementById('ingles').checked;
+        var checkEspanhol = document.getElementById('espanhol').checked;
+        var checkOutro = document.getElementById('outro').checked;
+
+        if (checkIngles) {
+          filters.idiomas.push('ingles');
+        }
+        if (checkEspanhol) {
+          filters.idiomas.push('espanhol');
+        }
+        if (checkOutro) {
+          filters.idiomas.push('outro');
+        }
+
+        filterDubladores(filters);
+      }
+
+      function filterDubladores(filters) {
+        var dubladores = document.getElementsByClassName('object');
+        var noResults = document.getElementById('no-results');
+        noResults.style.display = 'none';
+
+        var i, j, dublador, match;
+        var hasFilters = false;
+
+
+    for (var key in filters) {
+        if (filters[key].length > 0) {
+          hasFilters = true;
+          break;
+        }
+      }
+
+      if (!hasFilters) {
+        showAllDubladores();
+        return;
+      }
+
+      for (i = 0; i < dubladores.length; i++) {
+        dublador = dubladores[i];
+        match = true;
+
+        for (var key in filters) {
+          var filterValues = filters[key];
+          var dubladorValues = dublador.classList;
+          var hasMatch = false;
+
+          if (filterValues.length > 0) {
+            for (j = 0; j < filterValues.length; j++) {
+              if (dubladorValues.contains(filterValues[j])) {
+                hasMatch = true;
+                break;
+              }
+            }
+          } else {
+            // Se nenhum valor for selecionado para o filtro, considera-se como correspondência
+            hasMatch = true;
+          }
+
+          if (!hasMatch) {
+            match = false;
+            break;
+          }
+        }
+
+        if (match) {
+          dublador.style.display = 'block';
+        } else {
+          dublador.style.display = 'none';
+        }
+      }
+
+      checkForNoMatches();
+    }
+
+    // Função para verificar se não há correspondências
+    function checkForNoMatches() {
+      var dubladores = document.getElementsByClassName('object');
+      var visibleDubladores = document.getElementsByClassName('object show');
+      var noResults = document.getElementById('no-results');
+
+      if (visibleDubladores.length === 0) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+
+    // Exibir todos os dubladores ao carregar a página
+    window.onload = function() {
+      showAllDubladores();
+    }
+
+
+    // Carrega os dubladores quando rolar a página
+      window.addEventListener('DOMContentLoaded', function() {
+          var container = document.getElementById('container');
+          var items = container.getElementsByClassName('item');
+          var loadedItems = 12; // Número inicial de itens carregados
+          var itemsPerLoad = 9; // Número de itens a serem carregados a cada rolagem
+
+          function loadItems() {
+            for (var i = loadedItems; i < loadedItems + itemsPerLoad; i++) {
+              if (i >= items.length) {
+                // Todos os itens já foram carregados, então remova o evento de scroll
+                window.removeEventListener('scroll', loadItems);
+                break;
+              }
+              items[i].style.display = 'block'; // Exibe o item
+            }
+            loadedItems += itemsPerLoad; // Atualize a quantidade de itens carregados
+       }
+
+      // Inicialmente, oculta todos, exceto os primeiros
+      for (var i = loadedItems; i < items.length; i++) {
+        items[i].style.display = 'none';
+      }
+
+      // Carrega mais itens quando o usuário rolar a página
+      window.addEventListener('scroll', loadItems);
+    });
+
+
+
+
+</script>
+
+
+
+<!--dubladores vistos-->
+
+    <style>
+
+    .column {
+      flex-basis: 30%;
+      padding: 30px;
+    }
+
+
+    .image-container {
+        width: 170px;
+        height: 170px;
+    }
+
+    .image-container img {
+        object-fit: cover;
+        width: 75%;
+        height: 75%;
+    }
+
+</style>
+
+
+<section class='bg-primary_black flex justify-center py-10'>
+    <div class="mt-20 pt-10 p-8 w-10/12 relative">
+        <h2 class="text-[#1EBABD] text-2xl">
+            Dubladores Vistos
+        </h2>
+        <div class="wrapper">
+            <section id="section1vistos" class="flex flex-nowrap items-center justify-center space-x-8">
+                <a href="#section2vistos" class="arrow__btn text-6xl page">‹</a>
+                {% for dublador in request.user.dubladores_vistos.all %}
+                {% if forloop.counter <= 6 %}
+                <div class="item h-64 w-1/4 m-4">
+                    <a href="{% url 'vox:detalhesvoz' dublador.id %}">
+                        <img src="{{ dublador.foto.url }}" class="rounded-md w-full h-full object-cover image2" alt="Imagem Carossel">
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <a href="#section2vistos" class="arrow__btn text-6xl">›</a>
+            </section>
+
+     {% if request.user.dubladores_vistos.all|length >= 7 %}
+            <section id="section2vistos" class="flex flex-nowrap items-center justify-center">
+                <a href="#section1vistos" class="arrow__btn text-6xl">‹</a>
+                {% for dublador in request.user.dubladores_vistos.all %}
+                {% if forloop.counter > 6 and forloop.counter <= 12 %}
+                <div class="item h-64 w-1/4 m-4">
+                    <a href="{% url 'vox:detalhesvoz' dublador.id %}">
+                        <img src="{{ dublador.foto.url }}" class="rounded-md w-full h-full object-cover image2" alt="Imagem Carossel">
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <a href="#section1vistos" class="arrow__btn text-6xl">›</a>
+            </section>
+                {% endif %}
+</section>
+
+{% endblock %}

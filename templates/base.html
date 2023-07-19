@@ -9,26 +9,6 @@
     </title>
 
 
- <!--   <script>
-
-            window.addEventListener('load', function() {
-                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-                checkboxes.forEach(checkbox => {
-                    checkbox.addEventListener('change', function() {
-                        if (this.checked) {
-                            checkboxes.forEach(otherCheckbox => {
-                                if (otherCheckbox !== this) {
-                                    otherCheckbox.checked = false;
-                                }
-                            });
-                        }
-                    });
-                });
-            });
-
-    </script> -->
-
 
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
      <script src="https://cdn.tailwindcss.com"></script>
@@ -45,10 +25,34 @@
     {% endblock %}
 
 
-<script>
+         <script>
+                const nav = document.querySelector('nav')
+
+                document.addEventListener("scroll",e=>{
+                    if(scrollY>100){
+                        if(scrollY>window.innerHeight){
+                        nav.classList.add('invisible')
+                    }else{
+                        nav.classList.add('bg-[#581D74]')
+                        nav.classList.remove('invisible')
+                    }
+                    }else{
+                        nav.classList.remove('bg-[#581D74]')
+                        nav.classList.remove('invisible')
+                    }
+                })
 
 
-</script>
+                window.addEventListener('load', function() {
+                    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+
+                });
+
+
+        </script>
 
             <footer class="text-[#1EBABD] px-5 py-5 font-arialbold">
                 <ul class="flex justify-between items-center">

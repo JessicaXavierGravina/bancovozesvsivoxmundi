@@ -43,7 +43,7 @@
                                 <a href="{% url 'vox:detalhesvoz' dublador.pk %}">
                                     <p style="margin-bottom: 1px;">{{ dublador.nome_artistico }}</p>
                                     <div class="image-container">
-                                        <img src="{{ dublador.foto.url }}" class="rounded mx-3 d-block" alt="Imagem Quadrada">
+                                        <img src="{{ dublador.foto.url }}" class="rounded mx-3 d-block" alt="{{ dublador.nome_artistico }}">
                                     </div>
                                 </a>
                             </div>
