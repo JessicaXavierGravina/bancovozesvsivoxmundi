@@ -1,6 +1,7 @@
 # url - view - template
 from django.urls import path, reverse_lazy
 from .views import Homepage, Homevozes, Detalhesvoz, Pesquisa, Editarperfil, Editardublador, Homevozes3
+from .views import Homepage, Homevozes, Detalhesvoz, Pesquisa, Editarperfil, Editardublador
 from django.contrib.auth import views as auth_view
 
 

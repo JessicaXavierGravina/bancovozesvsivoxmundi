@@ -71,6 +71,31 @@ git
                     {% elif object.audio2 %}
                     <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
                     <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
+
+   {% if user.is_authenticated %}
+        <center>
+            <a href="{% url 'vox:editorialised' object.pk %}">
+                <button class="bg-[#1EBABD] text-[#581D74] py-1 px-3 rounded-md">
+                    Editar os Detalhes do Perfil do Dublador
+                </button>
+            </a>
+        </center>
+    {% endif %}
+
+        <section class="bg-primary_black flex justify-center py-10">
+            <div class="p-8 w-10/12 relative">
+                <h2 class="text-2xl text-[#1EBABD] fw-bold">
+                    Dubladores Relacionados
+                </h2>
+                <div class="flex flex-wrap items-center min-w-full movie_lis">
+                    {% if vozes_relacionadas %}
+                        {% for dublador in vozes_relacionadas %}
+                            <div class="m-4 overflow-hidden flex-shrink-0 rounded-md cursor-pointer h-40 w-66">
+                                <a href="{% url 'vox:detalhesvoz' dublador.pk %}">
+                                    <img src="{{ dublador.foto.url }}" class="object-cover w-full h-full" alt="">
+                                </a>
+                            </div>
+                        {% endfor %}
                     {% else %}
                     <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
                     {% endif %}
