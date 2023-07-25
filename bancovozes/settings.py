@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'vox',
     'crispy_forms',
     'crispy_bootstrap5',
-
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -139,14 +140,14 @@ STATICFILES_DIRS = [
 
 
 
-# MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / "media"
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = 'media/'
 
-MEDIAFILES_DIRS = [
-    os.path.join(os.path.dirname(BASE_DIR), "static", "media"),
-]
+# MEDIAFILES_DIRS = [
+#     os.path.join(os.path.dirname(BASE_DIR), "static", "media"),
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -160,3 +161,17 @@ LOGIN_URL = 'vox:login'
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'huzahplc3',
+    'API_KEY': '945983825868242',
+    'API_SECRET': 'R5b0BNHzmuS2pztnpWF6Q9SZrpI'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+
