@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-cdv#@&7r!6#m8!!-*#5#30xq$jrl477w*s$70os3rxaxy-*$5u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # False
+DEBUG = False  # False
 
-ALLOWED_HOSTS = ["*"]   #colocar o link do site oficial
+ALLOWED_HOSTS = ["127.0.0.1", "bancovozes-vsivoxmundi-38f5f80315be.herokuapp.com"]   #colocar o link do site oficial
 
 
 # Application definition

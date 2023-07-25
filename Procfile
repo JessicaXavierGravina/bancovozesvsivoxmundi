@@ -1,4 +1,5 @@
-web: python manage.py migrate && gunicorn vox:wsgi --log-file -
+web: gunicorn vox:wsgi --log-file -
+
 
 
 
