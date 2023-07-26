@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   #sera sera
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-cdv#@&7r!6#m8!!-*#5#30xq$jrl477w*s$70os3rxaxy-*$5u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # False
+DEBUG = True  # False
 
 ALLOWED_HOSTS = ["127.0.0.1", "bancovozes-vsivoxmundi-38f5f80315be.herokuapp.com"]   #colocar o link do site oficial
 
@@ -88,12 +91,11 @@ DATABASES = {
 }
 
 import dj_database_url
-import os
 
-DATABASES['default'] = dj_database_url.config(
-    conn_max_age=600,
-    conn_health_checks=True,
-)
+# DATABASES['default'] = dj_database_url.config(
+#     conn_max_age=600,
+#     conn_health_checks=True,
+# )
 
 # DATABASES = {
 #     'default': {
@@ -149,6 +151,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # ]
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    'C:/bv_voxmundi/site_vozes/media/music/',
 ]
 
 STATICFILES_FINDERS = (
@@ -188,9 +191,3 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
-
-

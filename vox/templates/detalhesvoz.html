@@ -33,7 +33,6 @@ git
         <div style="margin-left: 400px; ">
             <img src="{{ object.foto.url }}" width="200" height="190" style="float: left;"
                  class="rounded mx-auto d-block" alt="...">
-<<<<<<< HEAD
 
             <div class="flex flex-col items-center justify-center mt-10">
                 <p>{{ object.dublador }}</p>
@@ -72,6 +71,7 @@ git
                     {% elif object.audio2 %}
                     <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
                     <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                    {% endif %}
 
    {% if user.is_authenticated %}
         <center>
@@ -82,63 +82,7 @@ git
             </a>
         </center>
     {% endif %}
-=======
->>>>>>> 59d95e8 (commit inicial)
 
-            <div class="flex flex-col items-center justify-center mt-10">
-                <p>{{ object.dublador }}</p>
-                <p>{{ object.nascimento }} ({{ object.nascimento|calcular_idade }} anos)</p>
-                <p>Categoria de voz: {{ object.categoria }}</p>
-                <p>Etnia: {{ object.etnia }}</p>
-                <p>Genero: {{ object.genero }}</p>
-                <p>Orientação Sexual: {{ object.orientacao }}</p>
-                <p>Idiomas: {{ object.idiomas }}</p>
-                <p>PCD? {{ object.pcd }}</p>
-                <p>Canta? {{ object.canta }}</p>
-                <p>Extensão Vocal: {{ object.extensao_vocal }}</p>
-                <div class="audio-player p-2">
-                    {% if object.audio6 %}
-                    <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio3.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio4.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio5.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio6.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    {% elif object.audio5 %}
-                    <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio3.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio4.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio5.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    {% elif object.audio4 %}
-                    <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio3.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio4.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    {% elif object.audio3 %}
-                    <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio3.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    {% elif object.audio2 %}
-                    <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    {% else %}
-                    <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% if user.is_authenticated %}
-    <center>
-        <a href="{% url 'vox:editorialised' object.pk %}">
-            <button class="bg-[#1EBABD] text-[#581D74] py-1 px-3 rounded-md">
-                Editar os Detalhes do Perfil do Dublador
-            </button>
-        </a>
-    </center>
-    {% endif %}
 
     <section class="bg-primary_black flex justify-center py-10">
         <div class="p-8 w-10/12 relative">
