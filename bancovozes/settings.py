@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-cdv#@&7r!6#m8!!-*#5#30xq$jrl477w*s$70os3rxaxy-*$5u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # False
 
-ALLOWED_HOSTS = ["https://bancovozesvsivoxmundi-69260a136fbd.herokuapp.com/"]   #colocar o link do site oficial
+ALLOWED_HOSTS = ['127.0.0.1', 'https://bancovozesvsivoxmundi-69260a136fbd.herokuapp.com/']   #colocar o link do site oficial
 
 
 # Application definition
@@ -87,10 +87,12 @@ DATABASES = {
     }
 }
 
-# import dj_database_url
-# import os
-#
-# DATABASE_URL = os.getenv("DATABASE_URL")
+import dj_database_url
+import os
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+# # DATABASE_URL = os.getenv("DATABASE_URL")
 # if DATABASE_URL:
 #     DATABASES = {
 #         'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
