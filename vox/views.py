@@ -9,6 +9,7 @@ import sqlite3
 import json
 
 
+
 class Homepage(FormView):
     template_name = "homepage.html"
     form_class = FormHomepage
@@ -79,74 +80,7 @@ class Homevozes(LoginRequiredMixin, ListView):
             dubladores = []
             for row in results:
                 dublador = {
-                    #'nome_artistico': row[0],
-                    'categoria': row[0],
-                    'genero': row[1],
-                    'canta': row[2],
-                    'orientacoes': row[3],
-                    'idioma': row[4],
-                    'etnias': row[5],
-                    'pcds': row[6]
-                }
-                dubladores.append(dublador)
-
-            conn.close()
-
-            return JsonResponse(json.dumps(dubladores), safe=False)
-
-
-
-class Homevozes3(LoginRequiredMixin, ListView):
-    template_name = "homevozes3.html"
-    model = Dubladore
-
-    def buscar(request):
-        if request.method == 'GET':
-            categoria = request.GET.getlist('categoria')
-            genero = request.GET.getlist('genero')
-            canta = request.GET.getlist('canta')
-            orientacao = request.GET.getlist('orientacao')
-            idioma = request.GET.getlist('idiomas')
-            etnia = request.GET.getlist('etnia')
-            pcd = request.GET.getlist('pcd')
-
-            conn = sqlite3.connect('bv_voxmundi\db.sqlite3')
-            cursor = conn.cursor()
-
-            query = "SELECT * FROM Dubladore WHERE "
-            conditions = []
-
-            for categoria in categoria:
-                conditions.append(f"categoria = '{categoria}'")
-
-            for genero in genero:
-                conditions.append(f"genero = '{genero}'")
-
-            for canta in canta:
-                conditions.append(f"canta = '{canta}'")
-
-            for orientacao in orientacao:
-                conditions.append(f"orientacao = '{orientacao}'")
-
-            for idioma in idioma:
-                conditions.append(f"idioma = '{idioma}'")
-
-            for etnia in etnia:
-                conditions.append(f"etnia = '{etnia}'")
-
-            for pcd in pcd:
-                conditions.append(f"pcd = '{pcd}'")
-
-            if conditions:
-                query += " AND ".join(conditions)
-
-            cursor.execute(query)
-            results = cursor.fetchall()
-
-            dubladores = []
-            for row in results:
-                dublador = {
-                    #'nome_artistico': row[0],
+                    # 'nome_artistico': row[0],
                     'categoria': row[0],
                     'genero': row[1],
                     'canta': row[2],
@@ -195,7 +129,7 @@ class Pesquisa(LoginRequiredMixin, ListView):
             return None
 
 
-#ESSE FILTRO
+# ESSE FILTRO
 class Filtro(LoginRequiredMixin, ListView):
     template_name = "buscar.html"
     model = Dubladore
@@ -208,9 +142,6 @@ class Filtro(LoginRequiredMixin, ListView):
             return object_list
         else:
             return None
-
-
-
 
 
 class Editarperfil(LoginRequiredMixin, UpdateView):
@@ -226,7 +157,6 @@ class Editardublador(LoginRequiredMixin, DetailView):
     template_name = "detalhesvoz.html"
     model = Dubladore
 
-<<<<<<< HEAD
     def get(self, request, *args, **kwargs):
         dublador = self.get_object()
         usuario = request.user
@@ -240,7 +170,7 @@ class Editardublador(LoginRequiredMixin, DetailView):
         context['vozes_relacionadas'] = vozes_relacionadas
         return context
 
-=======
+
 class Editardublador(LoginRequiredMixin, DetailView):
     template_name = "detalhesvoz.html"
     model = Dubladore
@@ -257,6 +187,7 @@ class Editardublador(LoginRequiredMixin, DetailView):
         vozes_relacionadas = Dubladore.objects.filter(categoria=dublador_atual.categoria)
         context['vozes_relacionadas'] = vozes_relacionadas
         return context
+
 
 class AdicionarDubladorView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):

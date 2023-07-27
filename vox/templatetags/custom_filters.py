@@ -1,8 +1,8 @@
 from django import template
 from datetime import date
 
-register = template.Library()
 
+register = template.Library()
 
 @register.filter
 def calcular_idade(data_anv):
