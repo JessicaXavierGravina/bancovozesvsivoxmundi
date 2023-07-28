@@ -22,14 +22,14 @@ BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 TOKEN_CSRF = os.getenv('TOKEN_VSRF')
 if TOKEN_CSRF:
     SECRET_KEY = TOKEN_CSRF
-    csrf_trusted_origins = ['https://sitevozes-production.up.railway.app/']
+    csrf_trusted_origins = ['https://sitevozes-production.up.railway.app']
 else:
     SECRET_KEY = "django-insecure-cdv#@&7r!6#m8!!-*#5#30xq$jrl477w*s$70os3r-*$5u"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True  # False
 
-ALLOWED_HOSTS = ["https://sitevozes-production.up.railway.app/", "localhost", "127.0.01"]  # collar o link do site
+ALLOWED_HOSTS = ["sitevozes-production.up.railway.app/", "localhost", "127.0.01"]  # collar o link do site
 
 INSTALLED_APPS = [
     'django.contrib.admin',
