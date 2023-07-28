@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-cdv#@&7r!6#m8!!-*#5#30xq$jrl477w*s$70os3r-*$5u"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'bancovozesvsivoxmundi-6015e7178f43.herokuapp.com']   # collar o link do site
+ALLOWED_HOSTS = ["*"]   # collar o link do site
 
 
 INSTALLED_APPS = [
@@ -85,16 +85,15 @@ DATABASES = {
     }
 }
 
-# import dj_database_url
-# import os
-#
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+import dj_database_url
+import os
 
-# # DATABASE_URL = os.getenv("DATABASE_URL")
-# if DATABASE_URL:
-#     DATABASES = {
-#         'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
-#     }
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -133,13 +132,14 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATIC_URL = 'static/'
-
+STIC_ROOT =  BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
 MEDIA_ROOT = BASE_DIR / "media"
+
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = 'media/'

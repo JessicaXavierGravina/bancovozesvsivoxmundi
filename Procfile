@@ -1,5 +1,1 @@
-web: gunicorn bancovozes.wsgi --log-file -
-
-
-
-#  pip install django-image-cropping
+web: gpython manage.py migrate && gunicorn bancovozes.wsgi --log-file -
