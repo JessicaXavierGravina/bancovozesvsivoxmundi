@@ -24,7 +24,7 @@ BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-cdv#@&7r!6#m8!!-*#5#30xq$jrl477w*s$70os3r-*$5u"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # False
+DEBUG = True  # False
 
 ALLOWED_HOSTS = ["*"]   # collar o link do site
 
