@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-cdv#@&7r!6#m8!!-*#5#30xq$jrl477w*s$70os3r-*$5u"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'https://bancovozesvsivoxmundi-69260a136fbd.herokuapp.com/']   # collar o link do site
+ALLOWED_HOSTS = ['127.0.0.1', 'bancovozesvsivoxmundi-6015e7178f43.herokuapp.com']   # collar o link do site
 
 
 INSTALLED_APPS = [

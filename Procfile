@@ -1,4 +1,4 @@
-web: gunicorn vox:wsgi --log-file -
+web: gunicorn bancovozes.wsgi --log-file -
 
 
 
