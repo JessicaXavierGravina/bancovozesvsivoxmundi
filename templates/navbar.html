@@ -1,4 +1,5 @@
 {% load static %}
+
 {% if user.is_authenticated %}
     <nav class="w-full flex justify-between items-center py-1 px-6 fixed z-50">
         <div class="w-2/12">
@@ -8,13 +9,12 @@
             </a>
         </div>
         {% else %}
-            <nav class="w-full flex justify-between items-center py-1 px-6 fixed z-50">
-            <div class="w-2/12">
-                <a href="/">
-                   <img class="w-2/12" src="{% static 'images/Aspas.png' %}">
-                </a>
-            </div>
-            {% endif %}
+        <div class="w-2/12">
+            <a href="/">
+                <img class="w-2/12" src="{% static 'images/Aspas.png' %}">
+            </a>
+        </div>
+        {% endif %}
 
         <div class="w-6/12 flex flex-nowrap justify-end">
             {% if user.is_authenticated %}

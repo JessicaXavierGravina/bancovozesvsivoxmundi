@@ -1,4 +1,4 @@
-from django.contrib import admin
+import django.contrib
 from .models import Dubladore, Usuario
 from django.contrib.auth.admin import UserAdmin
 
@@ -11,5 +11,5 @@ campos.append(
 UserAdmin.fieldsets = tuple(campos)
 
 
-admin.site.register(Dubladore)
-admin.site.register(Usuario, UserAdmin)
+django.contrib.admin.site.register(Dubladore)
+django.contrib.admin.site.register(Usuario, UserAdmin)

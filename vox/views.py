@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect, reverse
-from .models import Dubladore, Usuario
-from django.views.generic import ListView, DetailView, FormView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import FormHomepage
-from django.views import View
-from django.http import JsonResponse
-import sqlite3
 import json
+import sqlite3
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.shortcuts import redirect, reverse
+from django.views import View
+from django.views.generic import ListView, DetailView, FormView, UpdateView
+
+from .forms import FormHomepage
+from .models import Dubladore, Usuario
 
 
 class Homepage(FormView):
