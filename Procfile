@@ -1,1 +1,1 @@
-web: gpython manage.py migrate && gunicorn bancovozes.wsgi --log-file -
+web: python manage.py migrate && gunicorn bancovozes.wsgi --log-file -
