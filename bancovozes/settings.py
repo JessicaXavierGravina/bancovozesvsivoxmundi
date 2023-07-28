@@ -12,10 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import pathlib
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -26,8 +24,7 @@ SECRET_KEY = "django-insecure-cdv#@&7r!6#m8!!-*#5#30xq$jrl477w*s$70os3r-*$5u"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True  # False
 
-ALLOWED_HOSTS = ["*"]   # collar o link do site
-
+ALLOWED_HOSTS = ["*"]  # collar o link do site
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -88,7 +85,6 @@ DATABASES = {
 import dj_database_url
 import os
 
-
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
     DATABASES = {
@@ -114,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -126,27 +121,27 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATIC_URL = 'static/'
-STIC_ROOT =  BASE_DIR / "staticfiles"
+STIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+MEDIA_URL = 'media/'
+
 MEDIA_ROOT = BASE_DIR / "media"
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = 'media/'
 
-MEDIAFILES_DIRS = [
-    BASE_DIR / "static", "media",
-]
+# MEDIAFILES_DIRS = [
+#     BASE_DIR / "static", "media",
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
