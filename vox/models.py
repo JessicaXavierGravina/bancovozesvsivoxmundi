@@ -68,7 +68,6 @@ LISTA_ID_GENERO = (
 
 
 class Dubladore(models.Model):
-    objects = None
     dublador = models.CharField(max_length=100, blank=True)
     nome_artistico = models.CharField(max_length=40, blank=True)
     nascimento = models.DateField(verbose_name=_('Data de Nascimento'), null=True, blank=True)
