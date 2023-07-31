@@ -11,6 +11,7 @@ Fazer Login
                 style="background-image: url('{% static 'images/Logo Oficial - Horizontal.png' %}');">
         <div class="z-10 h-full py-32 md:py-0 text-[#1EBABD] text-center flex items-center flex-col">
             <form method="post">
+                 {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Faça Login para continuar</legend>
                     {{ form|crispy }}

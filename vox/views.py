@@ -9,7 +9,6 @@ from django.views.generic import ListView, DetailView, FormView, UpdateView
 
 from .forms import FormHomepage
 from .models import Dubladore, Usuario
-from django.views.decorators.csrf import csrf_exempt
 
 
 class Homepage(FormView):
@@ -23,7 +22,6 @@ class Homepage(FormView):
         else:
             return super().get(request, *args, **kwargs)  # redireciona para a homepage
 
-    @csrf_exempt
     def get_success_url(self):
         email = self.request.POST.get("email")
         usuarios = Usuario.objects.filter(email=email)

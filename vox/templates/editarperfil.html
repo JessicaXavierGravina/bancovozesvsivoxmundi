@@ -13,7 +13,7 @@ Editar Perfil
         <div class="z-10 h-full py-32 md:py-0 text-gray-100 text-center flex items-center flex-col">
             <h2 class="text-2xl">Olá, {{ user.username }}</h2>
             <form method="post">
-
+               {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Edite os campos abaixo para editar seu perfil</legend>
                   {{ form|crispy }}
