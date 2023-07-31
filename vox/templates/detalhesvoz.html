@@ -1,23 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load custom_filters %}
+
 
 {% block titulo %}
 + Detalhes - VSI Vox Mundi
 {% endblock %}
-git
+
 
 {% block head %}
-<!--suppress ALL, Annotator -->
 <style>
-            .audio-player {
-              display: inline-block;
-            }
+        .audio-player {
+          display: inline-block;
+        }
 
-            .audio-player audio {
-              width: 300px;
-              height: 35px;
-            }
+        .audio-player audio {
+          width: 300px;
+          height: 35px;
+        }
 
 
 </style>
@@ -26,8 +25,8 @@ git
 
 {% block content %}
 
-<div class='bg-primary_black min-h-screen w-full'>
-    <div class="py-20 px-20">
+<main class='bg-primary_black min-h-screen w-full'>
+    <div class="py-20 px-20 mx-10">
         <div class="flex flex-col items-center justify-center mt-10 text-4xl text-[#1EBABD]">
             <h1>Mais detalhes sobre: {{ object.nome_artistico }}</h1>
         </div>
@@ -38,7 +37,7 @@ git
 
             <div class="flex flex-col items-center justify-center mt-10">
                 <p>{{ object.dublador }}</p>
-                <p>{{ object.nascimento }} ({{ object.nascimento|calcular_idade }} anos)</p>
+                <p>{{ object.nascimento }}</p>
                 <p>Categoria de voz: {{ object.categoria }}</p>
                 <p>Etnia: {{ object.etnia }}</p>
                 <p>Genero: {{ object.genero }}</p>
@@ -73,42 +72,41 @@ git
                     {% elif object.audio2 %}
                     <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
                     <audio src="{{ object.audio2.url }}" class="m-1" controls controlsList="nodownload"></audio>
+                    {% else %}
+                    <audio src="{{ object.audio.url }}" class="m-1" controls controlsList="nodownload"></audio>
                     {% endif %}
-
-
-                        <a href="{% url 'vox:editorialised' object.pk %}">
-                            <button class="bg-[#1EBABD] text-[#581D74] py-1 px-3 rounded-md">
-                                Editar os Detalhes do Perfil do Dublador
-                            </button>
-                        </a>
                 </div>
             </div>
         </div>
+
+
+        <a href="{% url 'vox:editorialised' object.pk %}">
+            <button class="bg-[#1EBABD] text-[#581D74] py-1 px-3 rounded-md">
+                Editar os Detalhes do Perfil do Dublador
+            </button>
+        </a>
     </div>
 
-</div>
-
-<section class="bg-primary_black flex justify-center">
-    <div class="p-2 w-10/12 relative">
-        <h2 class="text-2xl text-[#1EBABD] fw-bold">
-            Dubladores Relacionados
-        </h2>
-        <div class="flex flex-wrap items-center min-w-full movie_lis">
-            {% if vozes_relacionadas %}
-            {% for dublador in vozes_relacionadas %}
-            <div class="m-4 overflow-hidden flex-shrink-0 rounded-md cursor-pointer h-40 w-66">
-                <a href="{% url 'vox:detalhesvoz' dublador.pk %}">
-                    <img src="{{ dublador.foto.url }}" class="object-cover w-full h-full"
-                         alt="{{ dublador.nome_artistico }}">
-                </a>
+    <section class="bg-primary_black flex justify-center py-10">
+        <div class="p-8 w-10/12 relative">
+            <h2 class="text-2xl text-[#1EBABD] fw-bold">
+                Dubladores Relacionados
+            </h2>
+            <div class="flex flex-wrap items-center min-w-full movie_lis">
+                {% if vozes_relacionadas %}
+                {% for dublador in vozes_relacionadas %}
+                <div class="m-4 overflow-hidden flex-shrink-0 rounded-md cursor-pointer h-40 w-66">
+                    <a href="{% url 'vox:detalhesvoz' dublador.pk %}">
+                        <img src="{{ dublador.foto.url }}" class="object-cover w-full h-full" alt="">
+                    </a>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="mt-8 ml-4">Não há dubladores relacionados.</p>
+                {% endif %}
             </div>
-            {% endfor %}
-            {% else %}
-            <p class="mt-8 ml-4">Não há dubladores relacionados.</p>
-            {% endif %}
         </div>
-    </div>
-</section>
-
+    </section>
+</main>
 
 {% endblock %}
