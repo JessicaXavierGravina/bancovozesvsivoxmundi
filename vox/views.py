@@ -1,7 +1,7 @@
 import json
 import sqlite3
 
-from django.views.decorators.csrf import requires_csrf_token
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect, reverse
@@ -11,7 +11,8 @@ from django.views.generic import ListView, DetailView, FormView, UpdateView
 from .forms import FormHomepage
 from .models import Dubladore, Usuario
 
-@csrf_exempt
+
+@csrf_protect
 class Homepage(FormView):
     template_name = "homepage.html"
     form_class = FormHomepage
