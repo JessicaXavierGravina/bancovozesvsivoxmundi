@@ -11,7 +11,9 @@ from django.views.generic import ListView, DetailView, FormView, UpdateView
 from .forms import FormHomepage
 from .models import Dubladore, Usuario
 
+from django.utils.decorators import method_decorator
 
+csrf_protected_method = method_decorator(csrf_protect)
 
 class Homepage(FormView):
     template_name = "homepage.html"
