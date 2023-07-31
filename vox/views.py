@@ -28,7 +28,7 @@ class Homepage(FormView):
     @csrf_exempt
     def get_success_url(self):
         email = self.request.POST.get("email")
-        password = request.POST['password']
+        password = self.request.POST['password']
         usuarios = Usuario.objects.filter(email=email, password=password)
         if usuarios:
             return reverse('vox:login')
