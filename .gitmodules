@@ -1,3 +1,3 @@
-[submodule "bancovozesvsivoxmundi"]
-	path = bancovozesvsivoxmundi
-	url = https://github.com/JessicaXavierGravina/bancovozesvsivoxmundi
+[submodule "site_vozes"]
+	path = site_vozes
+	url = https://github.com/JessicaXavierGravina/site_vozes

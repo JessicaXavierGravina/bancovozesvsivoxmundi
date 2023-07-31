@@ -1,7 +1,6 @@
 import json
 import sqlite3
 
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect, reverse
@@ -16,7 +15,6 @@ class Homepage(FormView):
     template_name = "homepage.html"
     form_class = FormHomepage
 
-
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:  # usuario esta autenticado:
             # redireciona para a homevozes
@@ -26,8 +24,7 @@ class Homepage(FormView):
 
     def get_success_url(self):
         email = self.request.POST.get("email")
-        password = self.request.POST['password']
-        usuarios = Usuario.objects.filter(email=email, password=password)
+        usuarios = Usuario.objects.filter(email=email)
         if usuarios:
             return reverse('vox:login')
         else:
@@ -155,24 +152,6 @@ class Editarperfil(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('vox:homevozes')
-
-
-class Editardublador(LoginRequiredMixin, DetailView):
-    template_name = "detalhesvoz.html"
-    model = Dubladore
-
-    def get(self, request, *args, **kwargs):
-        dublador = self.get_object()
-        usuario = request.user
-        usuario.dubladores_vistos.add(dublador)
-        return redirect('admin:vox_dubladore_change', object_id=dublador.pk)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        dublador_atual = self.get_object()
-        vozes_relacionadas = Dubladore.objects.filter(categoria=dublador_atual.categoria)
-        context['vozes_relacionadas'] = vozes_relacionadas
-        return context
 
 
 class Editardublador(LoginRequiredMixin, DetailView):
