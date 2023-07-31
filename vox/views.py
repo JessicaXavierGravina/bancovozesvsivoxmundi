@@ -26,7 +26,8 @@ class Homepage(FormView):
 
     def get_success_url(self):
         email = self.request.POST.get("email")
-        usuarios = Usuario.objects.filter(email=email)
+        password = request.POST['password']
+        usuarios = Usuario.objects.filter(email=email, password=password)
         if usuarios:
             return reverse('vox:login')
         else:
