@@ -1,7 +1,7 @@
 import json
 import sqlite3
 
-from django.views.decorators.csrf import csrf_protect
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect, reverse
@@ -11,15 +11,12 @@ from django.views.generic import ListView, DetailView, FormView, UpdateView
 from .forms import FormHomepage
 from .models import Dubladore, Usuario
 
-from django.utils.decorators import method_decorator
-
-csrf_protected_method = method_decorator(csrf_protect)
 
 class Homepage(FormView):
     template_name = "homepage.html"
     form_class = FormHomepage
 
-    @csrf_protect
+
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:  # usuario esta autenticado:
             # redireciona para a homevozes
