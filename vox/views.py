@@ -24,6 +24,8 @@ class Homepage(FormView):
         else:
             return super().get(request, *args, **kwargs)  # redireciona para a homepage
 
+    from django.views.decorators.csrf import csrf_exempt
+    @csrf_exempt
     def get_success_url(self):
         email = self.request.POST.get("email")
         password = request.POST['password']
