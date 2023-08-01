@@ -29,7 +29,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True  # False
 
-ALLOWED_HOSTS = ["vsivoxmundi-bancovozes.up.railway.app", "localhost", "127.0.01", "0.0.0.0:7192", "0.0.0.0:6262"]  # collar o link do site
+ALLOWED_HOSTS = ["vsivoxmundi-bancovozes.up.railway.app", "localhost", "127.0.0.1", "0.0.0.0:7192", "0.0.0.0:6262"]  # collar o link do site
 
 INSTALLED_APPS = [
     'django.contrib.admin',
