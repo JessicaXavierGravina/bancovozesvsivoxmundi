@@ -95,6 +95,17 @@ if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
     }
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'oe4PcHDT8wZeAmmloOiz',
+#         'HOST': 'containers-us-west-116.railway.app',
+#         'PORT': '6988',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -140,16 +151,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR / "media"
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-# MEDIAFILES_DIRS = [
-#     BASE_DIR / "static", "media",
-# ]
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
